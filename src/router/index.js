@@ -10,6 +10,11 @@ export default new Router({
       component: resolve => require(['@/components/layout'],resolve),
       children:[
         {
+          path: '/welcome',
+          name: 'welcome',
+          component: resolve => require(['@/components/welcome'],resolve)
+        },
+        {
           path: '/',
           name: 'home',
           component: resolve => require(['@/page/home'],resolve)
@@ -60,6 +65,16 @@ export default new Router({
           path: '/myinfoContent',
           name: 'myinfoContent',
           component: resolve => require(['@/page/myinfo/myInfo-content-list'],resolve),
+        },
+        {
+          path: '/school',
+          name: 'school',
+          component: resolve => require(['@/page/study/school'],resolve),
+        },
+        {
+          path: '/senecs',
+          name: 'senecs',
+          component: resolve => require(['@/page/study/senecs'],resolve),
         }
       ]
     }

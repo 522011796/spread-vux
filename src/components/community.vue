@@ -41,7 +41,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .layout-header{
   position: fixed;
   width:100%;

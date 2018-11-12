@@ -8,11 +8,11 @@
     </div>
     <div>
       <group style="margin-top:0;">
-        <cell title="用户名" value="ricky" style="font-size:14px;"></cell>
-        <cell title="性别" value="男" style="font-size:14px;"></cell>
-        <cell title="手机号" value="13881813486" style="font-size:14px;"></cell>
-        <cell title="注册时间" value="2018-11-11" style="font-size:14px;"></cell>
-        <cell title="最后登录时间" value="2018-11-11" style="font-size:14px;"></cell>
+        <cell title="用户名" value="ricky" class="block-cell"></cell>
+        <cell title="性别" value="男" class="block-cell"></cell>
+        <cell title="手机号" value="13881813486" class="block-cell"></cell>
+        <cell title="注册时间" value="2018-11-11" class="block-cell"></cell>
+        <cell title="最后登录时间" value="2018-11-11" class="block-cell""></cell>
       </group>
     </div>
   </div>
@@ -33,7 +33,7 @@
   }
 </script>
 
-<style lang="less">
+<style scoped>
   div{
     word-wrap:break-word;
     word-break:normal;
@@ -112,5 +112,11 @@
     overflow: hidden;
     position: relative;
     margin: 0 !important;
+  }
+  .block-cell{
+    font-size:14px;
+    height:30px;
+    line-height: 3px;
+    margin-top:0;
   }
 </style>

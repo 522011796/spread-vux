@@ -49,7 +49,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 div{
   word-wrap:break-word;
   word-break:normal;

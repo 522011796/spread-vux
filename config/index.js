@@ -10,7 +10,17 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    //代理到本地
+    proxyTable: {
+      '/**': {
+        target: 'https://www.rickycloud.cn/wechat', // 你接口的域名
+        secure: false,
+        changeOrigin: true,
+        // pathRewrite: {//
+        //   '^/proxy': '/' //这里理解成用‘/api’代替target里面的地址，组件中我们调接口时直接用/api代替，比如我要调用'http://0.0:300/user/add'，直接写‘/proxy/user/add’即可 代理后地址栏显示/
+        // }
+      }
+    },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST

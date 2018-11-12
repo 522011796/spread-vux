@@ -3,3 +3,34 @@
   top:40px;
   height:100%;
 }
+a,a:hover,a:active,a:visited{
+  text-decoration:none !important;
+}
+#hot .vux-label-desc,#myinfo .vux-label-desc{
+  font-size:12px !important;
+}
+#hot .weui-cells,#myinfo .weui-cells{
+  margin-top: 0;
+  background-color: #FFFFFF;
+  font-size: 17px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 !important;
+}
+#hot .weui-cells p{
+  margin-top: 0;
+}
+#myinfo .weui-cells p{
+  margin-top: 14px;
+}
+#layout .weui-tabbar p{
+  line-height: 0px;
+}
+#layout .weui-tabbar{
+  height:45px;
+}
+#layout .weui-tabbar__icon {
+  display: inline-block;
+  width: 27px;
+  height: 0px;
+}

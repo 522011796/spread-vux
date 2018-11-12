@@ -7,14 +7,15 @@
     <div ref="bar" style="">
       <tabbar slot="bottom" style="position: fixed;">
         <tabbar-item link="/">
+          <img slot="icon" src="./../assets/home.png" style="height:20px;width: 20px">
           <span slot="label">官方</span>
         </tabbar-item>
         <tabbar-item link="/hot">
-          <i class="fa fa-home"></i>
+          <img slot="icon" src="./../assets/users.png" style="height:20px;width: 20px">
           <span slot="label">社区</span>
         </tabbar-item>
         <tabbar-item link="/myinfo">
-          <i class="fa fa-home"></i>
+          <img slot="icon" src="./../assets/user.png" style="height:20px;width: 20px">
           <span slot="label">我的</span>
         </tabbar-item>
       </tabbar>
@@ -41,7 +42,7 @@
           height:'',
           'overflow-y': 'auto',
           '-webkit-overflow-scrolling':'touch'
-      }
+        }
       }
     },
     created(){
@@ -68,21 +69,12 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style>
   html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
-.layout-header{
-  position: fixed;
-  width:100%;
-  left:0;
-  top:0;
-  z-index:100;
-  height:40px;
-  line-height:40px;
-  background: #eeeeee;
-  text-align: center;
-}
 </style>

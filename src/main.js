@@ -4,9 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './style/main.css'
+import 'font-awesome/css/font-awesome.css'
 
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
+
+// 引用API文件
+import apiReq from './api/index.js'
+// 将API方法绑定到全局
+Vue.prototype.$reqApi = apiReq
 
 Vue.config.productionTip = false
 

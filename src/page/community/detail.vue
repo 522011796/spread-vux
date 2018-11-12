@@ -16,7 +16,6 @@
               <span>ricky</span>
               <span><i class="fa fa-apple detail-fa-levl"></i></span>
               <span class="detail-user-floor">楼主</span>
-              <span class="detail-user-save">+关注楼主</span>
             </div>
             <div class="detail-user-time">2018-11-11 11:11:11</div>
 
@@ -65,7 +64,7 @@
           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
-          <div class="detail-fans-list-img detail-fans-list-more"><i class="fa fa-ellipsis-h"></i></div>
+          <div class="detail-fans-list-img detail-fans-list-more"><i class="fa fa-ellipsis-h" style="position: relative;top:5px;"></i></div>
         </div>
       </div>
       <div class="div-line"></div>
@@ -128,7 +127,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 div{
   word-wrap:break-word;
   word-break:normal;
@@ -181,7 +180,8 @@ div{
   font-size:16px;
 }
 .detail-user-time{
-  font-size: 12px
+  font-size: 12px;
+  margin-top:10px;
 }
 .img-class{
   height:100%;
@@ -232,7 +232,7 @@ div{
 .detail-fans-list-more{
   display: inline-block;
   position: relative;
-  top:-8px;
+  top:-11px;
   text-align: center;
   color:#808695;
 }
@@ -263,18 +263,11 @@ div{
   font-size:10px;
   color:#808695;
   position: relative;
-  top:-5px;
+  top:0px;
 }
 .detail-floor-num{
   position: absolute;
   right:10px;
   color:#808695;
-}
-.detail-user-save{
-  padding:1px;
-  border:1px solid #ed4014;
-  color:#ed4014;
-  border-radius: 2px;
-  font-size:10px;
 }
 </style>
