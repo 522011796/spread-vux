@@ -4,22 +4,6 @@
     <div :style="styleHeight">
       <router-view></router-view>
     </div>
-    <div ref="bar" style="">
-      <tabbar slot="bottom" style="position: fixed;">
-        <tabbar-item link="/">
-          <img slot="icon" src="./../assets/home.png" style="height:20px;width: 20px">
-          <span slot="label">官方</span>
-        </tabbar-item>
-        <tabbar-item link="/hot">
-          <img slot="icon" src="./../assets/users.png" style="height:20px;width: 20px">
-          <span slot="label">社区</span>
-        </tabbar-item>
-        <tabbar-item link="/myinfo">
-          <img slot="icon" src="./../assets/user.png" style="height:20px;width: 20px">
-          <span slot="label">我的</span>
-        </tabbar-item>
-      </tabbar>
-    </div>
     </view-box>
   </div>
 </template>
@@ -50,16 +34,13 @@
     },
     methods:{
       hh() {
-        this.styleHeight.height = window.innerHeight-53 + 'px';
+        this.styleHeight.height = window.innerHeight + 'px';
       }
     },
     mounted: function () {
       var _self = this;
       this.bodyPaddingTop = 40  + 'px';
       this.bodyPaddingBottom = 40 + 'px';
-      setTimeout(function () {
-        console.log(_self.$refs.bar.offsetHeight)
-      }, 0)
       // 注：window.onresize只能在项目内触发1次
       var _self = this;
       window.onresize = function () {

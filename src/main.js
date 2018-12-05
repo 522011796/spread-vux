@@ -9,6 +9,15 @@ import 'font-awesome/css/font-awesome.css'
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 
+FastClick.prototype.onTouchEnd = function(event) {
+  if(event.target.hasAttribute("type") && event.target.getAttribute("type") == "text") {
+    event.preventDefault();
+    return false;
+  }
+}
+
+
+
 // 引用API文件
 import apiReq from './api/index.js'
 // 将API方法绑定到全局

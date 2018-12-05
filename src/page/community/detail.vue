@@ -3,101 +3,40 @@
     <div class="layout-header">
       <div style="position: relative;">
         <span class="header-bar" @click="backUrl"><i class="fa fa-chevron-left"></i></span>
+        <span>网月社区</span>
       </div>
     </div>
-    <div>
+    <div style="padding:10px 16px;">
       <div>
-        <div class="detail-user-main">
-          <div class="detail-user-left">
-            <img src="" alt="" class="img-class">
-          </div>
-          <div class="detail-user-right">
-            <div>
-              <span>ricky</span>
-              <span><i class="fa fa-apple detail-fa-levl"></i></span>
-              <span class="detail-user-floor">楼主</span>
-            </div>
-            <div class="detail-user-time">2018-11-11 11:11:11</div>
-
-            <div style="position: absolute;right:10px;top:15px;font-size:10px;border:1px solid #dcdee2;border-radius: 2px;padding:1px;">
-              <span>智能门锁</span>
-            </div>
-          </div>
-          <div style="clear: both"></div>
+        <div>
+          网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
         </div>
-      </div>
-      <div class="detail-content-main">
-        <div class="detail-content-title">
-          第二代智能门锁发布啦...第二代智能门锁发布啦...第二代智能门锁发布啦...第二代智能门锁发布啦...第二代智能门锁发布啦...
-        </div>
-        <div class="detail-content-detail">
-          <div>
-            <div>
-              第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦
-              第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦
-            </div>
-            <img src="./../../assets/1.jpeg" alt="" class="img-class">
-            <div>
-              第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦
-              第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦
-            </div>
-            <img src="./../../assets/1.jpeg" alt="" class="img-class">
-            <div>
-              第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦
-              第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦第二代智能门锁发布啦...第二代智能门锁发布啦
-            </div>
-            <img src="./../../assets/1.jpeg" alt="" class="img-class">
+        <div>
+          <div style="position: relative;margin-top:5px;">
+            <span style="color:#2db7f5;margin-right:10px;">
+              <img src="https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
+              <span style="position: relative;top:-5px;font-size:10px;">ricky</span>
+            </span>
+            <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
+              2018-11-11 12:12:12
+            </span>
           </div>
         </div>
       </div>
-      <div class="ditail-fans-main">
-        <div class="detail-fans-heart-num">
-          <div><i class="fa fa-heart-o"></i></div>
-          <div class="detail-fans-user">12赞过</div>
-        </div>
-        <div class="detail-fans-list">
-          <div>
-            <span class="detail-fans-user-total">50人评价</span>
-          </div>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="detail-fans-list-img">
-          <div class="detail-fans-list-img detail-fans-list-more"><i class="fa fa-ellipsis-h" style="position: relative;top:5px;"></i></div>
-        </div>
-      </div>
-      <div class="div-line"></div>
-      <div style="padding:10px;">
-        <div v-for="(item,index) in 5" :key="index">
-          <div class="detail-content-item-left">
-            <img src="" alt="" class="img-class">
-          </div>
-          <div class="detail-content-item-right">
-            <div>
-              <div style="position: relative">
-                <span>rickyTest</span>
-                <span><i class="fa fa-apple" style="color:#808695;"></i></span>
-                <span class="detail-floor-num">
-                  <span v-if="index < 3">
-                    <label v-if="index==0">沙发</label>
-                    <label v-if="index==1">板凳</label>
-                    <label v-if="index==2">地板</label>
-                  </span>
-                  <label v-else>{{index+1}}楼</label>
-                </span>
-              </div>
-              <div>
-                <span class="detail-content-time">2018-11-11 11:11:11</span>
-              </div>
-            </div>
-            <div>
-              测试回复...测试回复...测试回复...测试回复...测试回复...测试回复...测试回复...测试回复...测试回复...测试回复...
-            </div>
-          </div>
-          <div style="clear: both"></div>
-          <div class="div-line-list"></div>
-        </div>
+      <div style="margin-top:10px;font-size:12px;color:#515a6e;">
+        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+        <video-player  class="video-player vjs-custom-skin"
+                       ref="videoPlayer"
+                       :playsinline="true"
+                       :options="playerOptions"
+                       @play="onPlayerPlay($event)"
+                       @pause="onPlayerPause($event)"
+        >
+        </video-player>
+        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+        <img src="./../../assets/1.jpeg" alt="" class="img-class" />
+        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+        <img src="./../../assets/1.jpeg" alt="" class="img-class" />
       </div>
     </div>
   </div>
@@ -105,23 +44,52 @@
 
 <script>
   import { XButton,Divider,Cell,Group } from 'vux'
+  import 'video.js/dist/video-js.css'
+  import { videoPlayer } from 'vue-video-player'
   export default {
     components: {
-      XButton,Divider,Cell,Group
+      XButton,Divider,Cell,Group,videoPlayer
     },
     data () {
       return {
-        back:''
+        back:'',
+        playerOptions: {
+//        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+          autoplay: false, //如果true,浏览器准备好时开始回放。
+          muted: false, // 默认情况下将会消除任何音频。
+          loop: false, // 导致视频一结束就重新开始。
+          preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+          language: 'zh-CN',
+          aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+          fluid: false, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+          sources: [{
+            type: "video/mp4",
+            src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" //你的m3u8地址（必填）
+          }],
+          poster: "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg", //你的封面地址
+          notSupportedMessage: '此视频暂无法播放，请稍后再试',
+        }
       }
     },
     name: 'detail',
     created(){
-      console.log(this.$route.query.back);
       this.back = this.$route.query.back;
     },
     methods:{
       backUrl(){
         this.$router.push(this.back);
+      },
+      onPlayerPlay(player) {
+        console.log(player);
+        this.videoDialogVisible = true
+      },
+      onPlayerPause(player){
+        console.log("pause");
+      },
+    },
+    computed: {
+      play() {
+        //return this.$refs.videoPlayer.player
       }
     }
   }
@@ -139,135 +107,22 @@ div{
   left:0;
   top:0;
   z-index:101;
-  height:40px;
-  line-height:40px;
+  height:35px;
+  line-height:35px;
+  font-size:13px;
   background: #ffffff;
-  text-align: left;
+  color:#808695;
+  text-align: center;
 }
 .header-bar{
-  margin-left:10px;
+  position: absolute;
+  left:5px;
   width: 30px;
   text-align: center;
 }
-.weui-cells {
-  margin-top: 0;
-  background-color: #FFFFFF;
-  line-height: 1.41176471;
-  font-size: 17px;
-  overflow: hidden;
-  position: relative;
-  margin: 0 !important;
-}
-.vux-label-desc{
-  font-size:12px !important;
-}
-.detail-user-main{
-  height:45px;
-  padding:0px 10px;
-  background: #eeeeee;
-  color:#808695;
-}
-.detail-user-left{
-  float: left;
-  height:38px;
-  width: 38px;
-  border:1px solid #dddddd;
-  position: relative;
-  top:3px;
-}
-.detail-user-right{
-  margin-left:45px;
-  font-size:16px;
-}
-.detail-user-time{
-  font-size: 12px;
-  margin-top:10px;
-}
 .img-class{
-  height:100%;
+  height:200px;
   width: 100%;
-}
-.detail-fa-levl{
-  font-size:10px;
-}
-.detail-user-floor{
-  padding:1px;
-  border:1px solid #42b983;
-  border-radius: 2px;
-  font-size:10px;
-}
-.detail-content-main{
-  padding:10px;
-}
-.detail-content-title{
-  font-size:14px;
-  font-weight: bold;
-  margin:0px 0px;
-  color:#17233d;
-}
-.detail-content-detail{
-  font-size:13px;
-  font-weight: normal;
-  color:#515a6e;
-  margin-top:10px;
-}
-.detail-fans-heart-num{
-  text-align: center;
-  color:#515a6e;
-  font-size:25px;
-}
-.detail-fans-user{
-  font-size:12px;
-}
-.detail-fans-list{
-  padding:10px;
-}
-.detail-fans-list-img{
-  height:25px;
-  width: 25px;
-  border-radius:3px;
-  border:1px solid #dddddd;
-  margin-right:2px;
-}
-.detail-fans-list-more{
-  display: inline-block;
-  position: relative;
-  top:-11px;
-  text-align: center;
-  color:#808695;
-}
-.detail-fans-user-total{
-  font-size:10px;
-  color:#808695;
-}
-.div-line{
-  background: #eeeeee;
-  height:10px;
-}
-.div-line-list{
-  background: #eeeeee;
-  height:1px;
-  margin:5px 0px;
-}
-.detail-content-item-left{
-  float: left;
-  height:25px;
-  width: 25px;
-  border:1px solid #dddddd;
-}
-.detail-content-item-right{
-  margin-left:30px;
-  font-size:12px;
-}
-.detail-content-time{
-  font-size:10px;
-  color:#808695;
-  position: relative;
-  top:0px;
-}
-.detail-floor-num{
-  position: absolute;
-  right:10px;
-  color:#808695;
+  margin:10px 0px;
 }
 </style>

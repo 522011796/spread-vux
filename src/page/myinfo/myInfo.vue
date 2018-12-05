@@ -2,53 +2,41 @@
   <div id="myinfo" class="main-position">
     <div class="layout-header">
       <div style="position: relative;">
+        <span class="header-bar" @click="backUrl"><i class="fa fa-chevron-left"></i></span>
         <span>个人中心</span>
       </div>
     </div>
     <div>
-      <div class="myinfo-info">
-        <div class="myinfo-title">
-          <div class="myinfo-header">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" class="img-class">
-          </div>
-          <div class="myinfo-item">
-            <div class="myinfo-item-info">
-              <div class="myinfo-item-title">ricky</div>
-              <div>138xxxxxxxx</div>
+      <div style="position: relative;height:70px;border:1px solid #dddddd;">
+        <div style="float:left;width: 60px;height:60px;border-radius: 60px;border:1px solid #dddddd;position: relative;top:5px;left:20px;">
+
+        </div>
+        <div style="margin-left:90px;color:#808695;font-size:12px;">
+            <div style="position: relative;top:15px;left:0px;">
+              <div style="font-size:15px;">
+                ricky
+              </div>
+              <div style="margin-top:5px;">
+                未绑定手机
+              </div>
             </div>
-          </div>
-          <div style="clear: both"></div>
         </div>
-        <div class="div-line"></div>
-        <div class="myinfo-list">
-          <flexbox>
-            <flexbox-item>
-              <div class="flex-demo text-list" @click="myContent">
-                <span>文章</span>
-                <span>12</span>
-              </div>
-            </flexbox-item>
-            <flexbox-item>
-              <div class="flex-demo text-list">
-                <span>关注</span>
-                <span>12</span>
-              </div>
-            </flexbox-item>
-            <flexbox-item>
-              <div class="flex-demo text-list">
-                <span>粉丝</span>
-                <span>12</span>
-              </div>
-            </flexbox-item>
-          </flexbox>
+      </div>
+
+      <div v-if="phoneBind == false">
+        <x-button :gradients="['#2db7f5', '#2db7f5']" style="font-size:12px;height:40px;width: 90%;margin-top:20px;" @click.native="bindPhone">绑定手机</x-button>
+      </div>
+
+      <div v-if="phoneBind == true" style="margin-top:20px;">
+        <div style="text-align: center">
+          <input type="text" placeholder="请输入手机号" style="height:40px;width: 80%;border:1px solid #dcdee2;padding-left:15px;"/>
         </div>
-        <div class="div-line"></div>
-        <div>
-          <group style="margin-top:0;">
-            <cell title="个人信息" is-link class="block-cell" @click.native="myinfoDetail">
-              <img slot="icon" width="35" style="display:block;margin-right:5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=">
-            </cell>
-          </group>
+        <div style="text-align: center;position: relative;margin-top:10px;">
+          <input type="text" placeholder="请输入验证码" style="height:40px;width: 80%;border:1px solid #dcdee2;padding-left:15px"/>
+          <x-button mini plain type="primary" style="font-size:12px;width:100px;position: absolute;right:30px;top:8px;">获取验证码</x-button>
+        </div>
+        <div style="text-align: center">
+          <x-button :gradients="['#2db7f5', '#2db7f5']" style="font-size:12px;height:40px;width: 90%;margin-top:20px;">提交</x-button>
         </div>
       </div>
     </div>
@@ -56,18 +44,33 @@
 </template>
 
 <script>
-  import { XButton,Divider,Cell,Group,Flexbox, FlexboxItem } from 'vux'
+  import { XButton,Divider,Cell,Group,Flexbox, FlexboxItem,XInput } from 'vux'
   export default {
     components: {
-      XButton,Divider,Cell,Group,Flexbox, FlexboxItem
+      XButton,Divider,Cell,Group,Flexbox, FlexboxItem,XInput
     },
     name: 'myinfo',
+    data () {
+      return {
+        back:'',
+        phoneBind:false
+      }
+    },
+    created(){
+      this.back = this.$route.query.back;
+    },
     methods:{
+      backUrl(){
+        this.$router.push(this.back);
+      },
       myinfoDetail(event,name){
         this.$router.push({path: '/myinfoDetail', query: {back: '/myinfo'}});
       },
       myContent(){
         this.$router.push({path: '/myinfoContent', query: {back: '/myinfo'}});
+      },
+      bindPhone(){
+        this.phoneBind = true;
       }
     }
   }
@@ -85,62 +88,17 @@
     left:0;
     top:0;
     z-index:101;
-    height:40px;
-    line-height:40px;
-    background: #eeeeee;
+    height:35px;
+    line-height:35px;
+    font-size:13px;
+    background: #ffffff;
+    color:#808695;
     text-align: center;
   }
-  .myinfo-info{
-    height:150px;
-  }
-  .myinfo-title{
-    position: relative;
-    height:110px;
-  }
-  .myinfo-list{
-    height:40px;
-    line-height:40px;
-  }
-  .text-list{
-    text-align: center;
-    font-size: 13px;
-  }
-  .myinfo-header{
-    position: relative;
-    float: left;
-    height:100px;
-    width: 100px;
-    top:5px;
-  }
-  .myinfo-item{
-    float: left;
-    font-size: 13px;
-    position: relative;
-  }
-  .myinfo-item-info{
-    position: relative;
-    left:15px;
-    top:20px;
-    width: 100%;
-  }
-  .myinfo-item-title{
-    font-size:15px;
-  }
-  .img-class{
-    height:100%;
-    width: 100%;
+  .header-bar{
     position: absolute;
     left:5px;
-    border:1px solid #dddddd;
-  }
-  .div-line{
-    height:10px;
-    background: #eeeeee;
-  }
-  .block-cell{
-    font-size:14px;
-    height:30px;
-    line-height: 3px;
-    margin-top:0;
+    width: 30px;
+    text-align: center;
   }
 </style>

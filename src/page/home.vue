@@ -1,107 +1,127 @@
 <template>
-  <div id="home" class="home-main">
+  <div id="home">
     <div class="layout-header">
       <div style="position: relative;">
-        <span>官方动态</span>
-        <span class="header-bar" @click="topMenu"><i class="fa fa-list"></i></span>
-        <popup v-model="showTopMenu" position="top" :show-mask="false">
-          <div class="position-vertical">
-            <router-link to="/school" style="color:#808695;">
-              <div style="" >
-                <span><i class="fa fa-home"></i></span>
-                <span style="margin-left:15px;">网月学院</span>
-              </div>
-            </router-link>
-            <div style="">
-              <div>
-                <span><i class="fa fa-linode"></i></span>
-                <span style="margin-left:15px;">物联网场景展示</span>
-              </div>
-              <div style="padding-left:30px;">
-                <router-link :to="{path: '/senecs', query: {type: '家庭场景'}}" style="color:#808695;">
-                  <div>
-                    <span><i class="fa fa-linode"></i></span>
-                    <span style="margin-left:15px;">家庭场景</span>
-                  </div>
-                </router-link>
-                <router-link :to="{path: '/senecs', query: {type: '酒店场景'}}" style="color:#808695;">
-                  <div>
-                    <span><i class="fa fa-linode"></i></span>
-                    <span style="margin-left:15px;">酒店场景</span>
-                  </div>
-                </router-link>
-                <router-link :to="{path: '/senecs', query: {type: '民宿场景'}}" style="color:#808695;">
-                  <div>
-                    <span><i class="fa fa-linode"></i></span>
-                    <span style="margin-left:15px;">民宿场景</span>
-                  </div>
-                </router-link>
-              </div>
-            </div>
-            <span class="close-modal" @click="closeMenu">
-              <i class="fa fa-close" style="font-size:18px;"></i>
-            </span>
-          </div>
-        </popup>
+        <span class="header-bar-left" @click="topMenu"><i class="fa fa-search"></i></span>
+        <span>网月社区</span>
+        <span class="header-bar-right">
+          <span @click="noteAdd" style="border:1px solid #19be6b;border-radius: 3px;color:#19be6b;font-size:10px;padding:1px 3px;">
+            发帖
+          </span>
+          <i class="fa fa-user-circle-o" style="margin-left:10px;" @click="userInfo"></i>
+        </span>
       </div>
     </div>
     <div class="main-position">
-      <div @click="detail" class="home-item" v-for="(n,index) in 5" :key="index">
-        <div style="float:left;width: 70%">
-          <div class="home-item-title">
-            网月智能门锁第二代发布啦，功能简介。。。。。
-          </div>
-          <div class="home-item-content">
-            网月智能门锁第二代发布啦，功能简介，网月智能门锁第二代发布啦，功能简介，网月智能门锁第二代发布啦功能简介。。。。。
-          </div>
-          <div class="home-item-info">
-        <span>
-          <i class="fa fa-eye"></i>
-          12
-        </span>
-            <span>
-          <i class="fa fa-comment"></i>
-          12
-        </span>
-            <span>
-          <i class="fa fa-heart"></i>
-          12
-        </span>
+      <div>
+        <swiper loop auto :list="clickList" :index="clickIndex" @on-index-change="imgChange"></swiper>
+      </div>
+
+      <div class="home-title-menu">
+        <!--<flexbox>
+          <flexbox-item class="home-title-menu-tips-left">
+            <div class="home-title-menu-item home-title-menu-1">
+              <div class="fa fa-map-o"></div>
+              <div>
+                官方
+              </div>
+            </div>
+          </flexbox-item>
+          <flexbox-item class="home-title-menu-tips-right">
+            <div class="home-title-menu-item">
+              <div class="fa fa-paper-plane-o"></div>
+              <div>
+                达人集
+              </div>
+            </div>
+          </flexbox-item>
+        </flexbox>-->
+
+        <div>
+          <div v-for="(n,index) in 10" :key="index" @click="detailJump">
+            <div style="padding:10px 16px;">
+              <div style="color:#515a6e;">
+                网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+              </div>
+              <div style="position: relative;margin-top:5px;">
+                <span style="color:#2db7f5;margin-right:10px;">
+                  <img src="https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
+                  <span style="position: relative;top:-5px;">ricky</span>
+                </span>
+                  <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
+                  2018-11-11 12:12:12
+                </span>
+              </div>
+            </div>
+            <div class="div-line"></div>
           </div>
         </div>
-        <div style="margin-left:70%;">
-          <div class="title-img">
-            <img src="" alt="" class="img-class">
-          </div>
-        </div>
-        <div style="clear: both"></div>
-        <div class="div-line"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { XButton,Divider,Popup } from 'vux'
+  import { Swiper, Flexbox, FlexboxItem } from 'vux'
+
+  const only2ClickList = null;
+
   export default {
     components: {
-      XButton,Divider,Popup
+      Swiper,Flexbox,FlexboxItem
     },
     name: 'home',
     data () {
       return {
-        showTopMenu: false
+        showTopMenu: false,
+        imgList:[{
+          id:0,
+          url: 'javascript:',
+          img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
+          title: '送你一朵fua'
+        }, {
+          id:1,
+          url: 'javascript:',
+          img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
+          title: '送你一辆车'
+        }, {
+          id:2,
+          url: 'javascript:',
+          img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg', // 404
+          title: '送你一次旅行',
+          fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
+        }],
+        clickIndex:0,
+        clickList:only2ClickList
       }
     },
+    created(){
+      this.only2ClickList();
+    },
     methods:{
-      detail(){
+      detailJump(){
         this.$router.push({path: '/detail', query: {back: '/'}});
+      },
+      noteAdd(){
+        this.$router.push({path: '/note', query: {back: '/'}});
       },
       topMenu(){
         this.showTopMenu = true;
       },
       closeMenu(){
         this.showTopMenu = false;
+      },
+      imgChange (index) {
+        this.clickIndex = index;
+      },
+      only2ClickList(){
+        this.clickList = this.imgList.slice(0, 2).map(item => {
+          item.url = '/?' + item.id
+          return item
+        })
+      },
+      userInfo(){
+        this.$router.push({path: '/myinfo', query: {back: '/'}});
       }
     }
   }
@@ -113,30 +133,10 @@ div{
   word-break:normal;
   word-break:break-all;
 }
-.home-main{
-  padding:5px 5px;
-}
-.home-item{
-  height:140px;
-  margin-bottom:20px;
-}
-.home-item-title{
-  font-size:15px;
-  color:#17233d;
+.home-title-menu{
   height:40px;
-  line-height: 20px;
-  font-weight: bold;
-}
-.home-item-content{
-  font-size:12px;
-  color:#515a6e;
-  height:80px;
-}
-.home-item-info{
-  font-size:10px;
-  color:#808695;
-  height:20px;
-  line-height:20px;
+  background: #ffffff;
+  font-size:13px;
 }
 .home-item-info span{
   margin-right:10px;
@@ -148,7 +148,7 @@ div{
 .div-line{
   height:1px;
   background: #e8eaec;
-  margin:5px 0px 5px 0px;
+  margin:2px 0px 2px 0px;
 }
 .layout-header{
   position: fixed;
@@ -156,44 +156,21 @@ div{
   left:0;
   top:0;
   z-index:101;
-  height:40px;
-  line-height:40px;
-  background: #eeeeee;
+  height:35px;
+  line-height:35px;
+  font-size:13px;
+  background: #ffffff;
   text-align: center;
+  color:#808695;
 }
-.header-bar{
+.header-bar-right{
   position: absolute;
   top:0px;
   right:20px;
 }
-.title-img{
-  height: 100px;
-  width:95%;
-  border:1px solid #dddddd;
-  position: relative;
-  top:15px;
-}
-.position-vertical{
-  background: #fefefe;
-  text-align: left;
-  font-size:14px;
-  padding:10px 16px;
-  position: relative;
-  color:#808695;
-}
-.vux-popup-dialog {
-  width: 100%;
-  top: 0;
-  right: auto;
-  bottom: auto;
-  left: 0;
-  -moz-box-shadow:0px 2px 5px #dddddd;
-  -webkit-box-shadow:0px 2px 5px #dddddd;
-  box-shadow:0px 2px 5px #dddddd;
-}
-.close-modal{
+.header-bar-left{
   position: absolute;
-  right:15px;
-  top:8px
+  top:0px;
+  left:20px;
 }
 </style>
