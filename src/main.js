@@ -5,16 +5,18 @@ import App from './App'
 import router from './router'
 import './style/main.css'
 import 'font-awesome/css/font-awesome.css'
+import fastClick from './utils/editPoll'
 
-const FastClick = require('fastclick')
+/*const FastClick = require('fastclick')
 FastClick.attach(document.body)
 
 FastClick.prototype.onTouchEnd = function(event) {
+  console.log(event);
   if(event.target.hasAttribute("type") && event.target.getAttribute("type") == "text") {
     event.preventDefault();
     return false;
   }
-}
+}*/
 
 
 
