@@ -6,6 +6,9 @@ import router from './router'
 import './style/main.css'
 import 'font-awesome/css/font-awesome.css'
 import fastClick from './utils/editPoll'
+import uploader from 'vue-simple-uploader'
+
+Vue.use(uploader)
 
 /*const FastClick = require('fastclick')
 FastClick.attach(document.body)

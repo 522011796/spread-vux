@@ -9,7 +9,6 @@ FastClick.prototype.needsClick = function (target) {
   // if ($(target).parents('.needsclick').length) return true
   while (target.tagName !== 'BODY') {
     // 放在本地插件库, 请将includes换成indexOf判断
-    console.log(target.parentNode.parentNode.className);
     if (target.parentNode.parentNode.className.indexOf('needsclick'))
       return true
     target = target.parent
