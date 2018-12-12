@@ -18,9 +18,9 @@
       <!--<div style="text-align: center;margin-top:10px;">
         <vue-html5-editor :content="content" :height="400" :auto-height="true" :z-index="1000" @change="updateData"></vue-html5-editor>
       </div>-->
-      <uploader :options="options" class="uploader-example" @file-success="fileSuccess" style="display: none">
+      <uploader :options="options" class="uploader-example" @file-success="fileSuccess" style="display:">
         <uploader-unsupport></uploader-unsupport>
-        <uploader-drop>
+        <uploader-drop style="display: none">
           <uploader-btn id="uploadBtn" :attrs="attrs">select files</uploader-btn>
           <!--<uploader-btn :attrs="attrs">select images</uploader-btn>-->
           <!--<uploader-btn :directory="true">select folder</uploader-btn>-->
@@ -54,7 +54,7 @@
     ['bold'],
     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
     [{ 'color': [] }],
-    ['image','video']
+    ['image']
   ];
 
   export default {
@@ -116,11 +116,20 @@
       fileSuccess (rootFile, file, message, chunk) {
         let _self = this;
         let data = JSON.parse(message);
-        console.log(data.data.url)
+        console.log(data.data)
         console.log(data.data.type)
+        console.log(data.data.url.indexOf("http://"));
+        let url = "";
         if(data.data.type == '.png' || data.data.type == '.jpg' || data.data.type == '.jpeg'){
-          let url = "http://" + data.data.url;
-          _self.detailContent += "<img src='"+url+"' style='width: 100% !important;height:140px !important;'/>";
+          if(data.data.url.indexOf("http://") != -1 || data.data.url.indexOf("https://") != -1){
+            console.log(1);
+            url = data.data.url;
+          }else{
+            console.log(2);
+            url = "http://" + data.data.url;
+          }
+          console.log(url);
+          _self.detailContent += "<img src='"+url+"' style='width: 100% !important;'/>";
         }
       },
       onError (e) {

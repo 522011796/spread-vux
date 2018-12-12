@@ -7,7 +7,7 @@
       </div>
     </div>
     <div>
-      <div style="position: relative;height:70px;border:1px solid #dddddd;">
+      <div v-if="phoneBind == false" style="position: relative;height:70px;border:1px solid #dddddd;">
         <div style="float:left;width: 60px;height:60px;border-radius: 60px;border:1px solid #dddddd;position: relative;top:5px;left:20px;">
 
         </div>
@@ -17,15 +17,16 @@
                 ricky
               </div>
               <div style="margin-top:5px;">
-                未绑定手机
+                <span>未绑定手机</span>
+                <x-button mini plain type="primary" style="font-size:10px;position: absolute;right:10px;top:10px" @click.native="bindPhone">绑定手机</x-button>
               </div>
             </div>
         </div>
       </div>
 
-      <div v-if="phoneBind == false">
+      <!--<div v-if="phoneBind == false">
         <x-button :gradients="['#2db7f5', '#2db7f5']" style="font-size:12px;height:40px;width: 90%;margin-top:20px;" @click.native="bindPhone">绑定手机</x-button>
-      </div>
+      </div>-->
 
       <div v-if="phoneBind == true" style="margin-top:20px;">
         <div style="text-align: center">
@@ -37,6 +38,7 @@
         </div>
         <div style="text-align: center">
           <x-button :gradients="['#2db7f5', '#2db7f5']" style="font-size:12px;height:40px;width: 90%;margin-top:20px;">提交</x-button>
+          <x-button :gradients="['#E64340', '#E64340']" style="font-size:12px;height:40px;width: 90%;margin-top:20px;" @click.native="cancelBindPhone">取消</x-button>
         </div>
       </div>
     </div>
@@ -71,6 +73,9 @@
       },
       bindPhone(){
         this.phoneBind = true;
+      },
+      cancelBindPhone(){
+        this.phoneBind = false;
       }
     }
   }
