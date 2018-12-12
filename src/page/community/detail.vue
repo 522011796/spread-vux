@@ -28,7 +28,16 @@
         <video-player  class="video-player vjs-custom-skin"
                        ref="videoPlayer"
                        :playsinline="true"
-                       :options="playerOptions"
+                       :options="playerOptionsFun('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4')"
+                       @play="onPlayerPlay($event)"
+                       @pause="onPlayerPause($event)"
+        >
+        </video-player>
+        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+        <video-player  class="video-player vjs-custom-skin"
+                       ref="videoPlayer"
+                       :playsinline="true"
+                       :options="playerOptionsFun('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4')"
                        @play="onPlayerPlay($event)"
                        @pause="onPlayerPause($event)"
         >
@@ -62,10 +71,7 @@
           language: 'zh-CN',
           aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
           fluid: false, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-          sources: [{
-            type: "video/mp4",
-            src: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" //你的m3u8地址（必填）
-          }],
+          //sources: [],
           poster: "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg", //你的封面地址
           notSupportedMessage: '此视频暂无法播放，请稍后再试',
         }
@@ -74,10 +80,22 @@
     name: 'detail',
     created(){
       this.back = this.$route.query.back;
+      this.init();
     },
     methods:{
       backUrl(){
         this.$router.push(this.back);
+      },
+      init(){
+
+      },
+      playerOptionsFun(url){
+        this.playerOptions['sources'] = [];
+        this.playerOptions.sources.push({
+          type: "video/mp4",
+          src: url //你的m3u8地址（必填）
+        });
+        return this.playerOptions;
       },
       onPlayerPlay(player) {
         console.log(player);
