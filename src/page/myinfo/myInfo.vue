@@ -32,7 +32,10 @@
         <div style="text-align: center">
           <input type="text" placeholder="请输入手机号" style="height:40px;width: 80%;border:1px solid #dcdee2;padding-left:15px;"/>
         </div>
-        <div style="text-align: center;position: relative;margin-top:10px;">
+        <div style="text-align: center">
+          <input type="password" placeholder="请输入登录密码" style="height:40px;width: 80%;border:1px solid #dcdee2;padding-left:15px;"/>
+        </div>
+        <div style="text-align: center;position: relative;">
           <input type="text" placeholder="请输入验证码" style="height:40px;width: 80%;border:1px solid #dcdee2;padding-left:15px"/>
           <x-button mini plain type="primary" style="font-size:12px;width:100px;position: absolute;right:30px;top:8px;">获取验证码</x-button>
         </div>
