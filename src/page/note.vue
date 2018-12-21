@@ -13,7 +13,7 @@
     </div>
     <div class="main-position" style="padding:10px 5px;">
       <div style="text-align: center">
-        <input type="text" placeholder="为帖子取一个响亮的标题" style="height:35px;width: 94%;border:1px solid #dcdee2;padding-left:15px;"/>
+        <input type="text" v-model="blogTitle" placeholder="为帖子取一个响亮的标题" style="height:35px;width: 94%;border:1px solid #dcdee2;padding-left:15px;" maxlength="30"/>
       </div>
       <!--<div style="text-align: center;margin-top:10px;">
         <vue-html5-editor :content="content" :height="400" :auto-height="true" :z-index="1000" @change="updateData"></vue-html5-editor>
@@ -31,15 +31,18 @@
       <div class="needsclick" style="text-align: center;margin-top:10px;">
         <quill-editor
           :options="editorOption"
-          v-model="detailContent">
+          v-model="blogContent">
         </quill-editor>
       </div>
     </div>
+
+    <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="errTips" width="15em" style="font-size:12px;"></toast>
+
   </div>
 </template>
 
 <script>
-  import { Swiper, Flexbox, FlexboxItem } from 'vux'
+  import { Swiper, Flexbox, FlexboxItem,Toast } from 'vux'
   import Uploader from 'vux-uploader'
 
   import initRichText from './../utils/edit';
@@ -59,7 +62,7 @@
 
   export default {
     components: {
-      Swiper,Flexbox,FlexboxItem,quillEditor
+      Swiper,Flexbox,FlexboxItem,quillEditor,Toast
     },
     name: 'home',
     data () {
@@ -67,17 +70,21 @@
         showTopMenu: false,
         back:'',
         content: '请输入文章内容',
-        uploadUrl:'/upload/file/upload',
+        uploadUrl:'/proxy/backend/upload-resource',
         uploadParams:{file:'',fileType:''},
-        detailContent:'',
+        categoryIdList:[],
+        blogTitle:'',
+        blogSlide:'',
+        blogSlideimgurl:'',
+        blogContent:'',
+        resourceUrlList:[],
+        showPositionValue:false,
+        errTips:'',
         options: {
           // https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js
-          target: '/upload/file/upload',
+          target: '/proxy/backend/upload-resource',
           testChunks: false,
-          query:{
-            fileType:'voice',
-            hotelCode:'YRCDO2RQJKOMQP2T'
-          }
+          fileParameterName:'resource'
         },
         attrs: {
           //accept: 'image/*'
@@ -102,8 +109,14 @@
     },
     created(){
       this.back = this.$route.query.back;
+      this.getType();
     },
     methods:{
+      getType(){
+        this.$reqApi.get("/proxy/backend/get-category-list", {} ,res => {
+          this.categoryList = res.data.data.categoryList;
+        });
+      },
       backUrl(){
         this.$router.push({path: '/', query: {back: '/'}});
       },
@@ -116,27 +129,52 @@
       fileSuccess (rootFile, file, message, chunk) {
         let _self = this;
         let data = JSON.parse(message);
-        console.log(data.data)
-        console.log(data.data.type)
-        console.log(data.data.url.indexOf("http://"));
+        var dataType = data.data.resourceExtension.toLowerCase();
         let url = "";
-        if(data.data.type == '.png' || data.data.type == '.jpg' || data.data.type == '.jpeg'){
-          if(data.data.url.indexOf("http://") != -1 || data.data.url.indexOf("https://") != -1){
-            console.log(1);
-            url = data.data.url;
+        if(dataType == 'jpeg' || dataType == 'jpg' || dataType == 'png'){
+          if(data.data.resourceUrl.indexOf("http://") != -1 || data.data.resourceUrl.indexOf("https://") != -1){
+            url = data.data.resourceUrl;
           }else{
-            console.log(2);
-            url = "http://" + data.data.url;
+            url = "http://" + data.data.resourceUrl;
           }
           console.log(url);
-          _self.detailContent += "<img src='"+url+"' style='width: 100% !important;'/>";
+          this.resourceUrlList.push(url);
+          _self.blogContent += "<img src='"+url+"' style='width: 100% !important;'/>";
         }
       },
       onError (e) {
         console.log(e.message)
       },
       noteSub(){
-        console.log(this.detailContent);
+        var params = {
+          blogTitle:this.blogTitle,
+          blogSlide:0,
+          blogSlideimgurl:this.blogSlideimgurl,
+          blogContent:this.blogContent,
+          resourceUrlList:this.resourceUrlList
+        };
+
+        if(this.blogTitle == ""){
+          this.showPositionValue = true;
+          this.errTips = '请填写标题';
+          return;
+        }
+        if(this.blogContent == ""){
+          this.showPositionValue = true;
+          this.errTips = '请填写内容';
+          return;
+        }
+
+        this.$reqApi.postQs("/proxy/backend/add-blog", params ,res => {
+          console.log(res);
+          this.showPositionValue = true;
+          this.errTips = res.data.desc;
+          this.$router.push("/");
+        },res=>{
+          console.log(res);
+          this.showPositionValue = true;
+          this.errTips = res.data.desc;
+        },{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
       }
     }
   }
@@ -185,7 +223,7 @@ div{
   text-align: center;
 }
 .quill-editor {
-  height: 500px;
+  height: 300px;
 }
 .header-bar-right{
   position: absolute;

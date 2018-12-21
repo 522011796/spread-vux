@@ -1,6 +1,7 @@
 <template>
   <div id="layout" style="height:100%;">
     <!--<router-view :style="styleHeight" style="border:1px solid;"></router-view>-->
+    <view-box>
     <div :style="styleHeight">
       <router-view></router-view>
     </div>

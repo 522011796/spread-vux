@@ -9,22 +9,23 @@
     <div style="padding:10px 16px;">
       <div>
         <div>
-          网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+          {{blogTitle}}
         </div>
         <div>
           <div style="position: relative;margin-top:5px;">
             <span style="color:#2db7f5;margin-right:10px;">
-              <img src="https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
-              <span style="position: relative;top:-5px;font-size:10px;">ricky</span>
+              <img :src="userHeadimgurl" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
+              <span style="position: relative;top:-5px;font-size:10px;">{{userNickname}}</span>
             </span>
             <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
-              2018-11-11 12:12:12
+              {{blogAddtime}}
             </span>
           </div>
         </div>
       </div>
       <div style="margin-top:10px;font-size:12px;color:#515a6e;">
-        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+        <div v-html="blogContent"></div>
+        <!--网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
         <video class="video-source" width="100%" height="180px"
                 controls
                 style="
@@ -60,7 +61,7 @@
         网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
         <img src="./../../assets/1.jpeg" alt="" class="img-class" />
         网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
-        <img src="./../../assets/1.jpeg" alt="" class="img-class" />
+        <img src="./../../assets/1.jpeg" alt="" class="img-class" />-->
       </div>
     </div>
   </div>
@@ -77,6 +78,12 @@
     data () {
       return {
         back:'',
+        blogId:'',
+        blogTitle:'',
+        userHeadimgurl:'',
+        userNickname:'',
+        blogContent:'',
+        blogAddtime:'',
         playerOptions: {
 //        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
           autoplay: false, //如果true,浏览器准备好时开始回放。
@@ -95,6 +102,7 @@
     name: 'detail',
     created(){
       this.back = this.$route.query.back;
+      this.blogId = this.$route.query.blogId;
       this.init();
     },
     methods:{
@@ -102,7 +110,21 @@
         this.$router.push(this.back);
       },
       init(){
+        let params = {
+          blogId:this.blogId
+        };
+        this.$reqApi.get("/proxy/frontend/get-blog-info", params ,res => {
+          console.log(res.data.data.blogInfo);
+          this.blogTitle = res.data.data.blogInfo.blogTitle;
+          this.userHeadimgurl = res.data.data.blogInfo.userHeadimgurl;
+          this.userNickname = res.data.data.blogInfo.userNickname;
 
+          let c1 = res.data.data.blogInfo.blogContent.replace(/<img width="100%"/g, '<img');
+          let c2 = res.data.data.blogInfo.blogContent.replace(/<img/g, '<img width="100%"');
+
+          this.blogContent = c2;
+          this.blogAddtime = res.data.data.blogInfo.blogAddtime;
+        });
       },
       playerOptionsFun(url){
         this.playerOptions['sources'] = [];

@@ -2,14 +2,23 @@
   <div id="home">
     <div class="layout-header">
       <div style="position: relative;">
-        <span class="header-bar-left" @click="topMenu"><i class="fa fa-search"></i></span>
-        <span>网月社区</span>
-        <span class="header-bar-right">
-          <span @click="noteAdd" style="border:1px solid #19be6b;border-radius: 3px;color:#19be6b;font-size:10px;padding:1px 3px;">
-            发帖
+        <div v-if="showSearch == true" style="position: relative;">
+          <input type="text" v-model="searchBlogTitle" placeholder="请输入文章标题进行搜索" style="height:35px;width: 70%;border:1px solid #dcdee2;padding-left:15px;" maxlength="30"/>
+          <span @click="searchTitle" style="position: absolute;right:15%;top:2px;"><i class="fa fa-search" style="font-size:15px;"></i></span>
+          <span @click="closeMenu" style="position: absolute;right:3%;top:2px;">取消</span>
+        </div>
+        <div v-if="showSearch == false">
+          <span class="header-bar-left" @click="topMenu"><i class="fa fa-search"></i></span>
+          <span>
+            <span>网月社区</span>
           </span>
-          <i class="fa fa-user-circle-o" style="margin-left:10px;" @click="userInfo"></i>
-        </span>
+            <span class="header-bar-right">
+            <span @click="noteAdd" style="border:1px solid #19be6b;border-radius: 3px;color:#19be6b;font-size:10px;padding:1px 3px;">
+              发帖
+            </span>
+            <i class="fa fa-user-circle-o" style="margin-left:10px;" @click="userInfo"></i>
+          </span>
+        </div>
       </div>
     </div>
     <div class="main-position">
@@ -38,18 +47,18 @@
         </flexbox>-->
 
         <div>
-          <div v-for="(n,index) in 10" :key="index" @click="detailJump">
+          <div v-for="(item,index) in noteList" :key="index" @click="detailJump($event,item.blogId)">
             <div style="padding:10px 16px;">
-              <div style="color:#515a6e;">
-                网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+              <div style="color:#515a6e;font-weight: bold">
+                {{item.blogTitle}}
               </div>
               <div style="position: relative;margin-top:5px;">
                 <span style="color:#2db7f5;margin-right:10px;">
-                  <img src="https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
-                  <span style="position: relative;top:-5px;">ricky</span>
+                  <img :src="item.userHeadimgurl" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
+                  <span style="position: relative;top:-5px;">{{item.userNickname}}</span>
                 </span>
                   <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
-                  2018-11-11 12:12:12
+                  {{item.blogAddtime}}
                 </span>
               </div>
             </div>
@@ -62,18 +71,20 @@
 </template>
 
 <script>
-  import { Swiper, Flexbox, FlexboxItem } from 'vux'
+  import { Swiper, Flexbox, FlexboxItem,XButton } from 'vux'
 
   const only2ClickList = null;
 
   export default {
     components: {
-      Swiper,Flexbox,FlexboxItem
+      Swiper,Flexbox,FlexboxItem,XButton
     },
     name: 'home',
     data () {
       return {
         showTopMenu: false,
+        showSearch:false,
+        searchBlogTitle:'',
         imgList:[{
           id:0,
           url: 'javascript:',
@@ -88,40 +99,77 @@
           id:2,
           url: 'javascript:',
           img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg', // 404
-          title: '送你一次旅行',
-          fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
+          title: '送你一次旅行'
         }],
         clickIndex:0,
-        clickList:only2ClickList
+        clickList:[],
+        imgList:[],
+        noteList:[]
       }
     },
     created(){
-      this.only2ClickList();
+      this.initTop();
+      this.initList();
     },
     methods:{
-      detailJump(){
-        this.$router.push({path: '/detail', query: {back: '/'}});
+      initTop(){
+        let params  = {
+          page:1,
+          pageSize:20,
+          blogSlide:1
+        };
+        this.$reqApi.get("/proxy/frontend/get-blog-list", params ,res => {
+          //console.log(res.data.data.blogList);
+          this.imgList = res.data.data.blogList;
+          this.only2ClickList(this.imgList);
+        });
+      },
+      initList(){
+        let params  = {
+          page:1,
+          pageSize:1000,
+          blogSlide:0,
+          keyword:this.searchBlogTitle
+        };
+        this.$reqApi.get("/proxy/frontend/get-blog-list", params ,res => {
+          console.log(res.data.data.blogList);
+          this.noteList = res.data.data.blogList;
+        });
+      },
+      detailJump(event,id){
+        this.$router.push({path: '/detail', query: {back: '/',blogId:id}});
       },
       noteAdd(){
-        this.$router.push({path: '/note', query: {back: '/'}});
+        if(!localStorage.getItem("userLogin") || localStorage.getItem("userLogin") == false){
+          this.$router.push({path: '/myinfo', query: {back: '/'}});
+        }else{
+          this.$router.push({path: '/note', query: {back: '/'}});
+        }
       },
       topMenu(){
         this.showTopMenu = true;
+        this.showSearch = true;
       },
       closeMenu(){
         this.showTopMenu = false;
+        this.showSearch = false;
+        this.searchBlogTitle = '';
+        this.initList();
       },
       imgChange (index) {
         this.clickIndex = index;
       },
-      only2ClickList(){
-        this.clickList = this.imgList.slice(0, 2).map(item => {
-          item.url = '/?' + item.id
+      only2ClickList(imgList){
+        this.clickList = imgList.slice(0, 2).map(item => {
+          item.url = '/detail?back=/&blogId=' + item.id;
           return item
         })
       },
       userInfo(){
         this.$router.push({path: '/myinfo', query: {back: '/'}});
+      },
+      searchTitle(){
+        this.initList();
       }
     }
   }

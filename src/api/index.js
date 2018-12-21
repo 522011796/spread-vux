@@ -2,8 +2,8 @@ import qs from 'qs';
 
 // 配置API接口地址
 //var root = 'http://47.98.169.141:9991'
-var root = 'https://www.rickycloud.cn/wechat';
-//var root = '/';
+//var root = 'https://www.rickycloud.cn/wechat';
+var root = '/';
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
@@ -55,9 +55,9 @@ function apiAxios (method, url ,params, success, failure, header) {
           success(res)
         }
       }else if(res.data.code === 401){
-        window.location = "/#/login";
+        window.location = "/#/welcome";
       }else if(res.data.code === 403){
-        window.location = "/#/login";
+        window.location = "/#/welcome";
       }else {
         if (failure) {
           failure(res)
