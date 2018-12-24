@@ -53,7 +53,7 @@
 
       //本地测试用，正式版本关闭
       var params = {
-        code : '071zFc8H02qVne2vgk8H0s7W7H0zFc8b'
+        code : '001OPbs815OatN1vxds81Y1gs81OPbsy'
       };
       this.$reqApi.postQs("/proxy/security/wx-code-auth", params ,res => {
         console.log(res.data.data.userInfo);

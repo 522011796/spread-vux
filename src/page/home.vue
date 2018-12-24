@@ -119,8 +119,17 @@
           blogSlide:1
         };
         this.$reqApi.get("/proxy/frontend/get-blog-list", params ,res => {
-          //console.log(res.data.data.blogList);
-          this.imgList = res.data.data.blogList;
+          let imgList = [];
+          for(var i=0;i<res.data.data.blogList.length;i++){
+            imgList.push({
+              id:res.data.data.blogList[i].blogId,
+              url: 'javascript:',
+              img: res.data.data.blogList[i].blogSlideimgurl,
+              title: ''
+            });
+          }
+          this.imgList = imgList;
+          console.log(this.imgList);
           this.only2ClickList(this.imgList);
         });
       },
@@ -132,7 +141,7 @@
           keyword:this.searchBlogTitle
         };
         this.$reqApi.get("/proxy/frontend/get-blog-list", params ,res => {
-          console.log(res.data.data.blogList);
+          //console.log(res.data.data.blogList);
           this.noteList = res.data.data.blogList;
         });
       },

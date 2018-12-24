@@ -26,6 +26,17 @@
       <div style="margin-top:10px;font-size:12px;color:#515a6e;">
         <div v-html="blogContent"></div>
         <!--网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
+        var html  = '<video class="video-source" width="100%" height="180px'
+                  += 'controls'
+                  += 'style="object-fit: cover;"'
+                  += 'webkit-playsinline="true"'
+                  += 'playsinline="true"'
+                  += 'x5-video-player-type="h5"'
+                  += 'x5-video-orientation="h5"'
+                  += 'x5-video-player-fullscreen="true"'
+                  += 'preload="auto"'
+                  += 'poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544675929245&di=082980f0dea86a5cacc47f1e4bea37a7&imgtype=0&src=http%3A%2F%2Fimg.debugrun.com%2Fpic%2F2017%2F10%2F30%2Fc1d115bd74da2a9bffb25c1b48e03dab.png"'
+                  += 'src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4">'
         <video class="video-source" width="100%" height="180px"
                 controls
                 style="

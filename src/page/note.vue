@@ -29,7 +29,7 @@
       </uploader>
 
       <div class="needsclick" style="text-align: center;margin-top:10px;">
-        <quill-editor
+        <quill-editor  ref="myTextEditor"
           :options="editorOption"
           v-model="blogContent">
         </quill-editor>
@@ -84,6 +84,7 @@
           // https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js
           target: '/proxy/backend/upload-resource',
           testChunks: false,
+          chunkSize: '8048000',
           fileParameterName:'resource'
         },
         attrs: {
@@ -127,6 +128,7 @@
         console.info(e);
       },
       fileSuccess (rootFile, file, message, chunk) {
+        let editor = this.$refs.myTextEditor.quill;
         let _self = this;
         let data = JSON.parse(message);
         var dataType = data.data.resourceExtension.toLowerCase();
@@ -139,18 +141,43 @@
           }
           console.log(url);
           this.resourceUrlList.push(url);
-          _self.blogContent += "<img src='"+url+"' style='width: 100% !important;'/>";
+          //_self.blogContent += "<img src='"+url+"' style='width: 100% !important;'/>";
+
+          editor.insertEmbed(length, 'image', url);
+          // 调整光标到最后
+          editor.setSelection(length + 1)
+        }
+
+        if(dataType == 'mp4'){
+          if(data.data.resourceUrl.indexOf("http://") != -1 || data.data.resourceUrl.indexOf("https://") != -1){
+            url = data.data.resourceUrl;
+          }else{
+            url = "http://" + data.data.resourceUrl;
+          }
+          _self.processStatusShow = false;
+          _self.resourceUrlList.push(url);
+          console.log(url);
+          let length = editor.getSelection().index;
+          editor.insertEmbed(length, 'video', url);
+          // 调整光标到最后
+          editor.setSelection(length + 1);
         }
       },
       onError (e) {
         console.log(e.message)
       },
       noteSub(){
+        let article = this.blogContent.replace(/(\<iframe|\<\/iframe)/gi, function ($0, $1) {
+          return {
+            "<iframe":"<video width='100%' height='180px' style='object-fit: cover;' controls webkit-playsinline='true' playsinline='true' x5-video-player-type='h5' x5-video-orientation='h5' x5-video-player-fullscreen='true' preload='auto' poster='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544675929245&di=082980f0dea86a5cacc47f1e4bea37a7&imgtype=0&src=http%3A%2F%2Fimg.debugrun.com%2Fpic%2F2017%2F10%2F30%2Fc1d115bd74da2a9bffb25c1b48e03dab.png'",
+            "</iframe": "</video",
+          }[$1];
+        });
         var params = {
           blogTitle:this.blogTitle,
           blogSlide:0,
           blogSlideimgurl:this.blogSlideimgurl,
-          blogContent:this.blogContent,
+          blogContent:article,
           resourceUrlList:this.resourceUrlList
         };
 
