@@ -82,6 +82,11 @@ export default new Router({
           path: '/funs',
           name: 'funs',
           component: resolve => require(['@/page/community/funs'],resolve)
+        },
+        {
+          path: '/goodsDetail',
+          name: 'goodsDetail',
+          component: resolve => require(['@/page/community/goodsDetail'],resolve)
         }
       ]
     },

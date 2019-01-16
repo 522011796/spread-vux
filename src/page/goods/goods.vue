@@ -20,7 +20,7 @@
         </div>
         <div class="goods-content-block">
           <div class="goods-content-block-item-block">
-            <div class="goods-content-block-item">
+            <div class="goods-content-block-item" @click="jumpDetail">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -28,7 +28,7 @@
                 门锁1
               </div>
             </div>
-            <div class="goods-content-block-item" style="margin-left: 10px;margin-right: 10px;">
+            <div class="goods-content-block-item" @click="jumpDetail" style="margin-left: 10px;margin-right: 10px;">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -36,7 +36,7 @@
                 门锁1
               </div>
             </div>
-            <div class="goods-content-block-item">
+            <div class="goods-content-block-item" @click="jumpDetail">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="goods-content-block">
           <div class="goods-content-block-item-block">
-            <div class="goods-content-block-item">
+            <div class="goods-content-block-item" @click="jumpDetail">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -69,7 +69,7 @@
                 门锁1
               </div>
             </div>
-            <div class="goods-content-block-item" style="margin-left: 10px;margin-right: 10px;">
+            <div class="goods-content-block-item" @click="jumpDetail" style="margin-left: 10px;margin-right: 10px;">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -77,7 +77,7 @@
                 门锁1
               </div>
             </div>
-            <div class="goods-content-block-item">
+            <div class="goods-content-block-item" @click="jumpDetail">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -102,7 +102,7 @@
         </div>
         <div class="goods-content-block">
           <div class="goods-content-block-item-block">
-            <div class="goods-content-block-item">
+            <div class="goods-content-block-item" @click="jumpDetail">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -110,7 +110,7 @@
                 门锁1
               </div>
             </div>
-            <div class="goods-content-block-item" style="margin-left: 10px;margin-right: 10px;">
+            <div class="goods-content-block-item" @click="jumpDetail" style="margin-left: 10px;margin-right: 10px;">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -118,7 +118,7 @@
                 门锁1
               </div>
             </div>
-            <div class="goods-content-block-item">
+            <div class="goods-content-block-item" @click="jumpDetail">
               <div style="height: 80px;width:80px;border: 1px solid">
 
               </div>
@@ -151,7 +151,17 @@
     },
     methods:{
       backUrl(){
-        this.$router.push('/');
+        this.$router.push('/goods');
+      },
+      jumpDetail(){
+        this.$router.push(
+          {
+            path: '/goodsDetail',
+            query: {
+              back: '/goods', blogId: '1'
+            }
+          }
+        )
       }
     }
   }
