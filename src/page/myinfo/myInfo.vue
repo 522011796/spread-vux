@@ -29,15 +29,15 @@
         </div>
         <div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;">
           <div class="myinfo-title-icon">
-            <div style="text-align: center;display: inline-block;font-size: 10px;">
+            <div style="text-align: center;display: inline-block;font-size: 10px;" @click="add">
               <div>关注</div>
               <div style="font-size:10px;">0</div>
             </div>
-            <div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;font-size: 10px;">
+            <div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;font-size: 10px;" @click="funs">
               <div>粉丝</div>
               <div style="font-size:10px;">0</div>
             </div>
-            <div style="text-align: center;display: inline-block;font-size: 10px;">
+            <div style="text-align: center;display: inline-block;font-size: 10px;" @click="like">
               <div>喜欢</div>
               <div style="font-size:10px;">0</div>
             </div>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;margin:10px 0px;">
+        <!--<div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;margin:10px 0px;">
           <div class="myinfo-title-icon">
             <div style="text-align: center;display: inline-block;">
               <img src="./../../assets/like.png" alt="" class="img-icon-class">
@@ -61,7 +61,7 @@
             </div>
             <div style="clear: both;"></div>
           </div>
-        </div>
+        </div>-->
 
         <div>
           <group>
@@ -335,6 +335,27 @@
       },
       cancelBindPhone(){
         this.phoneBind = false;
+      },
+      add(){
+        this.$router.push(
+          {
+            path: '/add'
+          }
+        );
+      },
+      funs(){
+        this.$router.push(
+          {
+            path: '/funs'
+          }
+        );
+      },
+      like(){
+        this.$router.push(
+          {
+            path: '/like'
+          }
+        );
       }
     }
   }

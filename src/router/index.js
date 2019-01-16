@@ -51,6 +51,13 @@ export default new Router({
           name: 'myinfo',
           component: resolve => require(['@/page/myinfo/myinfo'],resolve)
         },
+      ]
+    },
+    {
+      path: '/full',
+      name: 'full',
+      component: resolve => require(['@/components/layout-full'],resolve),
+      children:[
         {
           path: '/detail',
           name: 'detail',
@@ -60,8 +67,23 @@ export default new Router({
           path: '/blockDetail',
           name: 'blockDetail',
           component: resolve => require(['@/page/community/blockDetail'],resolve)
+        },
+        {
+          path: '/like',
+          name: 'like',
+          component: resolve => require(['@/page/community/like'],resolve)
+        },
+        {
+          path: '/add',
+          name: 'add',
+          component: resolve => require(['@/page/community/like'],resolve)
+        },
+        {
+          path: '/funs',
+          name: 'funs',
+          component: resolve => require(['@/page/community/funs'],resolve)
         }
       ]
-    }
+    },
   ]
 })
