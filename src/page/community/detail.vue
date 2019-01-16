@@ -6,73 +6,30 @@
         <span>网月社区</span>
       </div>
     </div>
-    <div style="padding:10px 16px;">
+    <div style="padding:5px 16px;background: #ffffff">
       <div>
         <div>
-          {{blogTitle}}
+          xxxxxxxxxxxxxx
         </div>
         <div>
           <div style="position: relative;margin-top:5px;">
             <span style="color:#2db7f5;margin-right:10px;">
-              <img :src="userHeadimgurl" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
-              <span style="position: relative;top:-5px;font-size:10px;">{{userNickname}}</span>
+              <img src="" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
+              <span style="position: relative;top:-8px;font-size:10px;">ricky</span>
+              <span>
+                <x-button mini plain type="primary" class="btn-class">+关注</x-button>
+              </span>
             </span>
             <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
-              {{blogAddtime}}
+
             </span>
           </div>
         </div>
       </div>
-      <div style="margin-top:10px;font-size:12px;color:#515a6e;">
-        <div v-html="blogContent"></div>
-        <!--网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
-        var html  = '<video class="video-source" width="100%" height="180px'
-                  += 'controls'
-                  += 'style="object-fit: cover;"'
-                  += 'webkit-playsinline="true"'
-                  += 'playsinline="true"'
-                  += 'x5-video-player-type="h5"'
-                  += 'x5-video-orientation="h5"'
-                  += 'x5-video-player-fullscreen="true"'
-                  += 'preload="auto"'
-                  += 'poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544675929245&di=082980f0dea86a5cacc47f1e4bea37a7&imgtype=0&src=http%3A%2F%2Fimg.debugrun.com%2Fpic%2F2017%2F10%2F30%2Fc1d115bd74da2a9bffb25c1b48e03dab.png"'
-                  += 'src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4">'
-        <video class="video-source" width="100%" height="180px"
-                controls
-                style="
-                object-fit: cover;"
-                webkit-playsinline="true"
-                x-webkit-airplay="true"
-                playsinline="true"
-                x5-video-player-type="h5"
-                x5-video-orientation="h5"
-                x5-video-player-fullscreen="true"
-                preload="auto"
-                poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544675929245&di=082980f0dea86a5cacc47f1e4bea37a7&imgtype=0&src=http%3A%2F%2Fimg.debugrun.com%2Fpic%2F2017%2F10%2F30%2Fc1d115bd74da2a9bffb25c1b48e03dab.png"
-                src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4">
-        </video>
-        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
-        <video-player  class="video-player vjs-custom-skin"
-                       ref="videoPlayer"
-                       :playsinline="true"
-                       :options="playerOptionsFun('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4')"
-                       @play="onPlayerPlay($event)"
-                       @pause="onPlayerPause($event)"
-        >
-        </video-player>
-        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
-        <video-player  class="video-player vjs-custom-skin"
-                       ref="videoPlayer"
-                       :playsinline="true"
-                       :options="playerOptionsFun('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4')"
-                       @play="onPlayerPlay($event)"
-                       @pause="onPlayerPause($event)"
-        >
-        </video-player>
-        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
-        <img src="./../../assets/1.jpeg" alt="" class="img-class" />
-        网月教程网月教程网月教程网月教程网月教程网月教程网月教程网月教程
-        <img src="./../../assets/1.jpeg" alt="" class="img-class" />-->
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#515a6e;">
+      <div v-html="blogContent">
+
       </div>
     </div>
   </div>
@@ -89,68 +46,35 @@
     data () {
       return {
         back:'',
+        backOld:'',
         blogId:'',
         blogTitle:'',
         userHeadimgurl:'',
         userNickname:'',
         blogContent:'',
         blogAddtime:'',
-        playerOptions: {
-//        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-          autoplay: false, //如果true,浏览器准备好时开始回放。
-          muted: false, // 默认情况下将会消除任何音频。
-          loop: false, // 导致视频一结束就重新开始。
-          preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-          language: 'zh-CN',
-          aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-          fluid: false, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-          //sources: [],
-          poster: "https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg", //你的封面地址
-          notSupportedMessage: '此视频暂无法播放，请稍后再试',
-        }
       }
     },
     name: 'detail',
     created(){
       this.back = this.$route.query.back;
+      this.backOld = this.$route.query.backOld;
       this.blogId = this.$route.query.blogId;
       this.init();
     },
     methods:{
       backUrl(){
-        this.$router.push(this.back);
+        this.$router.push(
+          {
+            path: this.back,
+            query: {
+              back: '/block', blogId: '1'
+            }
+          }
+        );
       },
       init(){
-        let params = {
-          blogId:this.blogId
-        };
-        this.$reqApi.get("/proxy/frontend/get-blog-info", params ,res => {
-          console.log(res.data.data.blogInfo);
-          this.blogTitle = res.data.data.blogInfo.blogTitle;
-          this.userHeadimgurl = res.data.data.blogInfo.userHeadimgurl;
-          this.userNickname = res.data.data.blogInfo.userNickname;
 
-          let c1 = res.data.data.blogInfo.blogContent.replace(/<img width="100%"/g, '<img');
-          let c2 = res.data.data.blogInfo.blogContent.replace(/<img/g, '<img width="100%"');
-
-          this.blogContent = c2;
-          this.blogAddtime = res.data.data.blogInfo.blogAddtime;
-        });
-      },
-      playerOptionsFun(url){
-        this.playerOptions['sources'] = [];
-        this.playerOptions.sources.push({
-          type: "video/mp4",
-          src: url //你的m3u8地址（必填）
-        });
-        return this.playerOptions;
-      },
-      onPlayerPlay(player) {
-        console.log(player);
-        this.videoDialogVisible = true
-      },
-      onPlayerPause(player){
-        console.log("pause");
       },
     },
     computed: {
@@ -173,10 +97,11 @@ div{
   left:0;
   top:0;
   z-index:101;
-  height:35px;
-  line-height:35px;
+  height:45px;
+  line-height:45px;
   font-size:13px;
   background: #ffffff;
+  border-bottom:1px solid #dddddd;
   color:#808695;
   text-align: center;
 }
@@ -190,5 +115,13 @@ div{
   height:200px;
   width: 100%;
   margin:10px 0px;
+}
+.btn-class{
+  font-size:10px !important;
+  height: 20px;
+  line-height: 20px;
+  padding: 0px 5px;
+  position: relative;
+  top: -5px;
 }
 </style>

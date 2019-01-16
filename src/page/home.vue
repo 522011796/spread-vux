@@ -1,83 +1,30 @@
 <template>
   <div id="home">
-    <div class="layout-header">
-      <div style="position: relative;">
-        <div v-if="showSearch == true" style="position: relative;">
-          <input type="text" v-model="searchBlogTitle" placeholder="请输入文章标题进行搜索" style="height:35px;width: 70%;border:1px solid #dcdee2;padding-left:15px;" maxlength="30"/>
-          <span @click="searchTitle" style="position: absolute;right:15%;top:2px;"><i class="fa fa-search" style="font-size:15px;"></i></span>
-          <span @click="closeMenu" style="position: absolute;right:3%;top:2px;">取消</span>
-        </div>
-        <div v-if="showSearch == false">
-          <span class="header-bar-left" @click="topMenu"><i class="fa fa-search"></i></span>
-          <span>
-            <span>网月社区</span>
-          </span>
-            <span class="header-bar-right">
-            <span @click="noteAdd" style="border:1px solid #19be6b;border-radius: 3px;color:#19be6b;font-size:10px;padding:1px 3px;">
-              发帖
-            </span>
-            <i class="fa fa-user-circle-o" style="margin-left:10px;" @click="userInfo"></i>
-          </span>
-        </div>
-      </div>
+    <div class="home-header">
+      <tab bar-active-color="#668599" :line-width="1">
+        <tab-item active-class="active-6-1" @on-item-click="onItemClick" selected>
+          <span class="tab-font">推荐</span>
+        </tab-item>
+        <tab-item  active-class="active-6-1" @on-item-click="onItemClick">
+          <span class="tab-font">板块</span>
+        </tab-item>
+      </tab>
     </div>
-    <div class="main-position">
-      <div>
-        <swiper loop auto :list="clickList" :index="clickIndex" @on-index-change="imgChange"></swiper>
-      </div>
 
-      <div class="home-title-menu">
-        <!--<flexbox>
-          <flexbox-item class="home-title-menu-tips-left">
-            <div class="home-title-menu-item home-title-menu-1">
-              <div class="fa fa-map-o"></div>
-              <div>
-                官方
-              </div>
-            </div>
-          </flexbox-item>
-          <flexbox-item class="home-title-menu-tips-right">
-            <div class="home-title-menu-item">
-              <div class="fa fa-paper-plane-o"></div>
-              <div>
-                达人集
-              </div>
-            </div>
-          </flexbox-item>
-        </flexbox>-->
-
-        <div>
-          <div v-for="(item,index) in noteList" :key="index" @click="detailJump($event,item.blogId)">
-            <div style="padding:10px 16px;">
-              <div style="color:#515a6e;font-weight: bold">
-                {{item.blogTitle}}
-              </div>
-              <div style="position: relative;margin-top:5px;">
-                <span style="color:#2db7f5;margin-right:10px;">
-                  <img :src="item.userHeadimgurl" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
-                  <span style="position: relative;top:-5px;">{{item.userNickname}}</span>
-                </span>
-                  <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
-                  {{item.blogAddtime}}
-                </span>
-              </div>
-            </div>
-            <div class="div-line"></div>
-          </div>
-        </div>
-      </div>
+    <div class="home-main">
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-  import { Swiper, Flexbox, FlexboxItem,XButton } from 'vux'
+  import { Swiper, Flexbox, FlexboxItem,XButton, Tab, TabItem } from 'vux'
 
   const only2ClickList = null;
 
   export default {
     components: {
-      Swiper,Flexbox,FlexboxItem,XButton
+      Swiper,Flexbox,FlexboxItem,XButton, Tab, TabItem
     },
     name: 'home',
     data () {
@@ -115,7 +62,7 @@
       initTop(){
         let params  = {
           page:1,
-          pageSize:20,
+          pageSize:10000,
           blogSlide:1
         };
         this.$reqApi.get("/proxy/frontend/get-blog-list", params ,res => {
@@ -141,93 +88,39 @@
           keyword:this.searchBlogTitle
         };
         this.$reqApi.get("/proxy/frontend/get-blog-list", params ,res => {
-          //console.log(res.data.data.blogList);
+          console.log(res.data.data.blogList);
           this.noteList = res.data.data.blogList;
         });
       },
-      detailJump(event,id){
-        this.$router.push({path: '/detail', query: {back: '/',blogId:id}});
-      },
-      noteAdd(){
-        if(!localStorage.getItem("userLogin") || localStorage.getItem("userLogin") == false){
-          this.$router.push({path: '/myinfo', query: {back: '/'}});
-        }else{
-          this.$router.push({path: '/note', query: {back: '/'}});
+      onItemClick(index){
+        if(index == "0"){
+          this.$router.push("/home");
         }
-      },
-      topMenu(){
-        this.showTopMenu = true;
-        this.showSearch = true;
-      },
-      closeMenu(){
-        this.showTopMenu = false;
-        this.showSearch = false;
-        this.searchBlogTitle = '';
-        this.initList();
-      },
-      imgChange (index) {
-        this.clickIndex = index;
-      },
-      only2ClickList(imgList){
-        this.clickList = imgList.slice(0, 2).map(item => {
-          item.url = '/detail?back=/&blogId=' + item.id;
-          return item
-        })
-      },
-      userInfo(){
-        this.$router.push({path: '/myinfo', query: {back: '/'}});
-      },
-      searchTitle(){
-        this.initList();
+        if(index == "1"){
+          this.$router.push("/home");
+        }
       }
     }
   }
 </script>
 
 <style scoped>
-div{
-  word-wrap:break-word;
-  word-break:normal;
-  word-break:break-all;
-}
-.home-title-menu{
-  height:40px;
-  background: #ffffff;
-  font-size:13px;
-}
-.home-item-info span{
-  margin-right:10px;
-}
-.img-class{
-  height:100%;
-  width: 100%;
-}
-.div-line{
-  height:1px;
-  background: #e8eaec;
-  margin:2px 0px 2px 0px;
-}
-.layout-header{
+.home-header{
   position: fixed;
-  width:100%;
-  left:0;
-  top:0;
-  z-index:101;
-  height:35px;
-  line-height:35px;
-  font-size:13px;
-  background: #ffffff;
-  text-align: center;
-  color:#808695;
+  z-index: 9999;
+  height: 45px;
+  width: 100%;
+  top: 0px;
 }
-.header-bar-right{
-  position: absolute;
-  top:0px;
-  right:20px;
+.home-main{
+  position: relative;
 }
-.header-bar-left{
-  position: absolute;
-  top:0px;
-  left:20px;
+.tab-font{
+  font-size:12px;
+}
+.active-6-1 {
+  color: #434343 !important;
+  border-color: #434343 !important;
+  font-weight: bold;
 }
 </style>

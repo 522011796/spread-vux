@@ -16,70 +16,50 @@ export default new Router({
         },
         {
           path: '/',
-          name: 'home',
-          component: resolve => require(['@/page/home'],resolve)
-        },
-        {
-          path: '/note',
-          name: 'note',
-          component: resolve => require(['@/page/note'],resolve)
-        },
-        {
-          path: '/hot',
-          name: 'community',
-          component: resolve => require(['@/components/community'],resolve),
+          //name: 'layout-tab',
+          component: resolve => require(['@/components/layout-tab'],resolve),
           children:[
             {
-              path: '/hot',
-              name: 'hot',
-              component: resolve => require(['@/page/community/hot'],resolve),
+              path: '/',
+              name: 'recommendRoot',
+              component: resolve => require(['@/page/topic/recommend'],resolve)
+            },
+            {
+              path: '/recommend',
+              name: 'recommend',
+              component: resolve => require(['@/page/topic/recommend'],resolve)
             },
             {
               path: '/block',
               name: 'block',
-              component: resolve => require(['@/page/community/block'],resolve),
+              component: resolve => require(['@/page/topic/block'],resolve)
             }
           ]
         },
         {
+          path: '/goods',
+          name: 'goods',
+          component: resolve => require(['@/page/goods/goods'],resolve)
+        },
+        {
+          path: '/find',
+          name: 'find',
+          component: resolve => require(['@/page/find/find'],resolve)
+        },
+        {
           path: '/myinfo',
           name: 'myinfo',
-          component: resolve => require(['@/page/myinfo/myInfo'],resolve)
+          component: resolve => require(['@/page/myinfo/myinfo'],resolve)
         },
         {
           path: '/detail',
           name: 'detail',
-          component: resolve => require(['@/page/community/detail'],resolve),
+          component: resolve => require(['@/page/community/detail'],resolve)
         },
         {
           path: '/blockDetail',
           name: 'blockDetail',
-          component: resolve => require(['@/page/community/block-detail'],resolve),
-        },
-        {
-          path: '/blockDetailContent',
-          name: 'blockDetailContent',
-          component: resolve => require(['@/page/community/block-detail-content'],resolve),
-        },
-        {
-          path: '/myinfoDetail',
-          name: 'myinfoDetail',
-          component: resolve => require(['@/page/myinfo/myInfo-detail'],resolve),
-        },
-        {
-          path: '/myinfoContent',
-          name: 'myinfoContent',
-          component: resolve => require(['@/page/myinfo/myInfo-content-list'],resolve),
-        },
-        {
-          path: '/school',
-          name: 'school',
-          component: resolve => require(['@/page/study/school'],resolve),
-        },
-        {
-          path: '/senecs',
-          name: 'senecs',
-          component: resolve => require(['@/page/study/senecs'],resolve),
+          component: resolve => require(['@/page/community/blockDetail'],resolve)
         }
       ]
     }

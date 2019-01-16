@@ -13,7 +13,8 @@ module.exports = {
     //代理到本地
     proxyTable: {
       '/**': {
-        target: 'http://192.168.15.50:8088', // 你接口的域名
+        //target: 'http://192.168.15.50:8088', // 你接口的域名
+        target: 'https://bbs.9451.com', // 你接口的域名
         secure: false,
         changeOrigin: true,
         /*pathRewrite: {//

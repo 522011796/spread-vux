@@ -18,7 +18,7 @@
       <!--<div style="text-align: center;margin-top:10px;">
         <vue-html5-editor :content="content" :height="400" :auto-height="true" :z-index="1000" @change="updateData"></vue-html5-editor>
       </div>-->
-      <uploader :options="options" class="uploader-example" @file-success="fileSuccess" style="display:">
+      <uploader :options="options" class="uploader-example" @file-success="fileSuccess" @file-added="fileAdd" style="display:">
         <uploader-unsupport></uploader-unsupport>
         <uploader-drop style="display: none">
           <uploader-btn id="uploadBtn" :attrs="attrs">select files</uploader-btn>
@@ -84,7 +84,7 @@
           // https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js
           target: '/proxy/backend/upload-resource',
           testChunks: false,
-          chunkSize: '8048000',
+          chunkSize: '1024000000',
           fileParameterName:'resource'
         },
         attrs: {
@@ -126,6 +126,14 @@
         let c2 = c1.replace(/<img/g, '<img width="100%"');
         this.content = c2;
         console.info(e);
+      },
+      fileAdd(file){
+        let size = (file.size / (1024 * 1024)).toFixed(2);
+        if(size > 1024){
+          this.showPositionValue = true;
+          this.errTips = '文件不能大于1G';
+          file.ignored = true;
+        }
       },
       fileSuccess (rootFile, file, message, chunk) {
         let editor = this.$refs.myTextEditor.quill;
@@ -169,7 +177,7 @@
       noteSub(){
         let article = this.blogContent.replace(/(\<iframe|\<\/iframe)/gi, function ($0, $1) {
           return {
-            "<iframe":"<video width='100%' height='180px' style='object-fit: cover;' controls webkit-playsinline='true' playsinline='true' x5-video-player-type='h5' x5-video-orientation='h5' x5-video-player-fullscreen='true' preload='auto' poster='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544675929245&di=082980f0dea86a5cacc47f1e4bea37a7&imgtype=0&src=http%3A%2F%2Fimg.debugrun.com%2Fpic%2F2017%2F10%2F30%2Fc1d115bd74da2a9bffb25c1b48e03dab.png'",
+            "<iframe":"<video width='100%' height='180px' style='object-fit: cover;' controls webkit-playsinline='true' playsinline='true' x5-video-player-type='h5' x5-video-orientation='h5' x5-video-player-fullscreen='true' preload='auto' poster='https://bbs.9451.com/proxy/img/video.jpg'",
             "</iframe": "</video",
           }[$1];
         });

@@ -2,16 +2,16 @@
   <div id="myinfo" class="main-position">
     <div class="layout-header">
       <div style="position: relative;">
-        <span class="header-bar" @click="backUrl"><i class="fa fa-chevron-left"></i></span>
         <span>个人中心</span>
       </div>
     </div>
     <div>
-      <div v-if="phoneBind == false && pwdBind == false" style="position: relative;height:70px;border:1px solid #dddddd;">
-        <div style="float:left;width: 60px;height:60px;border-radius: 60px;border:1px solid #dddddd;position: relative;top:5px;left:20px;">
-          <img :src="userLogoUrl" alt="" style="height:100%;width: 100%;border-radius: 100%;">
-        </div>
-        <div style="margin-left:90px;color:#808695;font-size:12px;">
+      <div v-if="phoneBind == false && pwdBind == false" style="position: relative;border-top:1px solid #dddddd;">
+        <div style="height:70px;background: #ffffff">
+          <div style="float:left;width: 60px;height:60px;border-radius: 60px;border:1px solid #dddddd;position: relative;top:5px;left:20px;">
+            <img :src="userLogoUrl" alt="" style="height:100%;width: 100%;border-radius: 100%;">
+          </div>
+          <div style="margin-left:90px;color:#808695;font-size:12px;">
             <div style="position: relative;top:15px;left:0px;">
               <div style="font-size:15px;font-weight: bold">
                 {{nickname}}
@@ -24,6 +24,51 @@
                 <x-button mini plain type="primary" style="font-size:10px;position: absolute;right:10px;top:10px" @click.native="bindPhone">绑定手机</x-button>
               </div>
             </div>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+        <div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;">
+          <div class="myinfo-title-icon">
+            <div style="text-align: center;display: inline-block;font-size: 10px;">
+              <div>关注</div>
+              <div style="font-size:10px;">0</div>
+            </div>
+            <div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;font-size: 10px;">
+              <div>粉丝</div>
+              <div style="font-size:10px;">0</div>
+            </div>
+            <div style="text-align: center;display: inline-block;font-size: 10px;">
+              <div>喜欢</div>
+              <div style="font-size:10px;">0</div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+
+        <div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;margin:10px 0px;">
+          <div class="myinfo-title-icon">
+            <div style="text-align: center;display: inline-block;">
+              <img src="./../../assets/like.png" alt="" class="img-icon-class">
+              <div style="font-size:10px;">被喜欢</div>
+            </div>
+            <div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;">
+              <img src="./../../assets/comment.png" alt="" class="img-icon-class">
+              <div style="font-size:10px;">评论</div>
+            </div>
+            <div style="text-align: center;display: inline-block;">
+              <img src="./../../assets/notice.png" alt="" class="img-icon-class">
+              <div style="font-size:10px;">通知</div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+
+        <div>
+          <group>
+            <cell title="设置" is-link>
+              <i slot="icon" style="font-size:20px;margin-right:5px;" class="fa fa-cog"></i>
+            </cell>
+          </group>
         </div>
       </div>
 
@@ -87,10 +132,10 @@
 </template>
 
 <script>
-  import { XButton,Divider,Cell,Group,Flexbox, FlexboxItem,XInput,Toast } from 'vux'
+  import { XButton,Divider,Cell,Group,Flexbox, FlexboxItem,XInput,Toast, CellBox } from 'vux'
   export default {
     components: {
-      XButton,Divider,Cell,Group,Flexbox, FlexboxItem,XInput,Toast
+      XButton,Divider,Cell,Group,Flexbox, FlexboxItem,XInput,Toast, CellBox
     },
     name: 'myinfo',
     data () {
@@ -307,8 +352,8 @@
     left:0;
     top:0;
     z-index:101;
-    height:35px;
-    line-height:35px;
+    height:45px;
+    line-height:45px;
     font-size:13px;
     background: #ffffff;
     color:#808695;
@@ -318,6 +363,13 @@
     position: absolute;
     left:5px;
     width: 30px;
+    text-align: center;
+  }
+  .img-icon-class{
+    height:25px;
+    width: 25px;
+  }
+  .myinfo-title-icon{
     text-align: center;
   }
 </style>

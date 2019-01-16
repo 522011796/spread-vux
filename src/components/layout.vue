@@ -1,62 +1,59 @@
 <template>
-  <div id="layout" style="height:100%;">
-    <!--<router-view :style="styleHeight" style="border:1px solid;"></router-view>-->
-    <view-box>
-    <div :style="styleHeight">
+  <div id="layout">
+    <view-box ref="viewBox" :bodyPaddingBottom="bodyPaddingBottom" :bodyPaddingTop="bodyPaddingTop" style="height: 100%;">
       <router-view></router-view>
-    </div>
     </view-box>
+    <tabbar slot="bottom" style="position: fixed;left: 0;">
+      <tabbar-item link="/recommend" selected>
+        <i slot="icon" class="fa fa-home icon-size"></i>
+        <span slot="label">首页</span>
+      </tabbar-item>
+      <tabbar-item link="/goods">
+        <i slot="icon" class="fa fa-th icon-size"></i>
+        <span slot="label">新品</span>
+      </tabbar-item>
+      <tabbar-item link="/find">
+        <i slot="icon" class="fa fa-search icon-size"></i>
+        <span slot="label">发现</span>
+      </tabbar-item>
+      <tabbar-item link="/myinfo">
+        <i slot="icon" class="fa fa-user icon-size"></i>
+        <span slot="label">我的</span>
+      </tabbar-item>
+    </tabbar>
   </div>
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, XButton, XHeader,ViewBox } from 'vux'
+  import { XButton, Tabbar, TabbarItem,ViewBox,Tab, TabItem } from 'vux'
   export default {
     components: {
-      XButton, Tabbar, TabbarItem,XHeader,ViewBox
+      XButton,
+      Tabbar,
+      TabbarItem,
+      ViewBox,
+      Tab,
+      TabItem
     },
-    name: 'layout',
+    name: 'Layout',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
-        bodyPaddingTop:'',
-        bodyPaddingBottom:'',
-        styleHeight: {
-        height: '',
-          top:'0px',
-          height:'',
-          'overflow-y': 'auto',
-          '-webkit-overflow-scrolling':'touch'
-        }
-      }
-    },
-    created(){
-      this.hh();
-    },
-    methods:{
-      hh() {
-        this.styleHeight.height = window.innerHeight + 'px';
+        bodyPaddingTop:0,
+        bodyPaddingBottom:0
       }
     },
     mounted: function () {
-      var _self = this;
-      this.bodyPaddingTop = 40  + 'px';
-      this.bodyPaddingBottom = 40 + 'px';
-      // 注：window.onresize只能在项目内触发1次
-      var _self = this;
-      window.onresize = function () {
-        _self.hh();
-      }
+      this.bodyPaddingTop = '45px';
+      this.bodyPaddingBottom = '46px';
     },
   }
 </script>
 
-<style>
-  html, body {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
+<style scoped>
+  #app {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  }
+  .icon-size{
+    font-size: 20px;
   }
 </style>
