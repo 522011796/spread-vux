@@ -6,18 +6,23 @@
         <span>关注</span>
       </div>
     </div>
-    <div class="block-main" @click.stop="jumpDetail">
+    <div class="block-main" v-if="userList.length > 0" v-for="(item,index) in userList" :key="index">
       <div class="block-title">
         <div class="block-logo">
-          <img src="./../../assets/1.jpeg" alt="" class="img-class">
+          <img :src="item.userHeadimgurl" alt="" class="img-class">
         </div>
         <div class="block-content">
-          <div>xxxxxxxxxxxxxxxxxxxx</div>
-          <span>
+          <div>{{item.userNickname}}</div>
+          <!--<span>
             <x-button mini plain type="primary" class="btn-class">+关注</x-button>
-          </span>
+          </span>-->
         </div>
         <div style="clear: both;"></div>
+      </div>
+    </div>
+    <div class="block-main" v-if="userList.length == 0">
+      <div style="text-align: center;color:#dddddd;font-size:12px;margin-top:10%;background: #f8f8f9">
+        暂无数据
       </div>
     </div>
   </div>
@@ -33,15 +38,38 @@
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        back:''
+        back:'',
+        userListToUser:[],
+        userListToMy:[],
+        queryType:'',
+        userList:[]
       }
     },
     created(){
+      this.back = this.$route.query.back;
+      this.queryType = this.$route.query.queryType;
 
+      this.foucsToMy();
     },
     methods:{
       backUrl(){
         this.$router.push('/myinfo');
+      },
+      init(){
+        this.foucsToMy();
+        //this.myToFoucs();
+      },
+      foucsToMy(){
+        var params = {
+          queryType: this.queryType,
+          page: 1,
+          pageSize: 10000
+        };
+        this.$reqApi.get('/proxy/frontend/get-focus-user-list',this.$utils.clearData(params),res => {
+          console.log(res.data.data);
+          this.likeToMyNum = res.data.data.userCount;
+          this.userList = res.data.data.userList;
+        });
       },
       jumpDetail(){
         this.$router.push(

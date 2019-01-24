@@ -29,17 +29,17 @@
         </div>
         <div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;">
           <div class="myinfo-title-icon">
-            <div style="text-align: center;display: inline-block;font-size: 10px;" @click="add">
+            <div style="text-align: center;display: inline-block;font-size: 10px;margin-right: 20%" @click="addToUser">
               <div>关注</div>
-              <div style="font-size:10px;">0</div>
+              <div style="font-size:10px;">{{myToLikeNum}}</div>
             </div>
-            <div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;font-size: 10px;" @click="funs">
+            <!--<div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;font-size: 10px;" @click="funs">
               <div>粉丝</div>
               <div style="font-size:10px;">0</div>
-            </div>
-            <div style="text-align: center;display: inline-block;font-size: 10px;" @click="like">
-              <div>喜欢</div>
-              <div style="font-size:10px;">0</div>
+            </div>-->
+            <div style="text-align: center;display: inline-block;font-size: 10px;margin-left: 20%" @click="userTomyAdd">
+              <div>被关注</div>
+              <div style="font-size:10px;">{{likeToMyNum}}</div>
             </div>
             <div style="clear: both;"></div>
           </div>
@@ -63,13 +63,13 @@
           </div>
         </div>-->
 
-        <div>
+        <!--<div>
           <group>
             <cell title="设置" is-link>
               <i slot="icon" style="font-size:20px;margin-right:5px;" class="fa fa-cog"></i>
             </cell>
           </group>
-        </div>
+        </div>-->
       </div>
 
       <!--<div v-if="phoneBind == false">
@@ -158,7 +158,12 @@
         timer:null,
         userLogoUrl:'',
         nickname:'',
-        phone:''
+        phone:'',
+        likeToMyNum:0,
+        myToLikeNum:0,
+        queryType:'',
+        userListToUser:[],
+        userListToMy:[]
       }
     },
     created(){
@@ -174,13 +179,40 @@
           this.userLogoUrl = localStorage.getItem("headerurl");
           this.nickname = localStorage.getItem("nickname");
           this.phone = localStorage.getItem("phone");
+
+          this.foucsToMy();
+          this.myToFoucs();
         }
+      },
+      foucsToMy(){
+        var params = {
+          queryType: 2,
+          page: 1,
+          pageSize: 10000
+        };
+        this.$reqApi.get('/proxy/frontend/get-focus-user-list',this.$utils.clearData(params),res => {
+          console.log(res.data.data);
+          this.likeToMyNum = res.data.data.userCount;
+          this.userListToMy = res.data.data.userList;
+        });
+      },
+      myToFoucs(){
+        var params = {
+          queryType: 1,
+          page: 1,
+          pageSize: 10000
+        };
+        this.$reqApi.get('/proxy/frontend/get-focus-user-list',this.$utils.clearData(params),res => {
+          console.log(res.data.data);
+          this.myToLikeNum = res.data.data.userCount;
+          this.userListToUser = res.data.data.userList;
+        });
       },
       backUrl(){
         this.$router.push(this.back);
       },
       myinfoDetail(event,name){
-        this.$router.push({path: '/myinfoDetail', query: {back: '/myinfo'}});
+        this.$router.push({path: '/myinfoDetail', query: {back: '/myinfo',queryType:1}});
       },
       myContent(){
         this.$router.push({path: '/myinfoContent', query: {back: '/myinfo'}});
@@ -336,10 +368,25 @@
       cancelBindPhone(){
         this.phoneBind = false;
       },
-      add(){
+      addToUser(){
         this.$router.push(
           {
-            path: '/add'
+            path: '/add',
+            query: {
+              back: '/myInfo',
+              queryType:1
+            }
+          }
+        );
+      },
+      userTomyAdd(){
+        this.$router.push(
+          {
+            path: '/add',
+            query: {
+              back: '/myInfo',
+              queryType:2
+            }
           }
         );
       },
@@ -353,7 +400,11 @@
       like(){
         this.$router.push(
           {
-            path: '/like'
+            path: '/like',
+            query: {
+              back: '/myInfo',
+              queryType:2
+            }
           }
         );
       }

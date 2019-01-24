@@ -1,5 +1,6 @@
 <template>
   <div id="detail" class="main-position">
+    <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="errTips" width="15em" style="font-size:10px;"></toast>
     <div class="layout-header">
       <div style="position: relative;">
         <span class="header-bar" @click="backUrl"><i class="fa fa-chevron-left"></i></span>
@@ -14,7 +15,7 @@
         <span class="detail-footer-item">rickys</span>
           <span class="detail-footer-item">
             <span @click.stop="eye"><i class="fa fa-eye"></i></span>
-            <span>12</span>
+            <span>{{item.blogPv}}</span>
           </span>
           <!--<span class="detail-footer-item">
             <span @click.stop="heart"><i class="fa fa-heart-o"></i></span>
@@ -22,10 +23,10 @@
           </span>-->
           <span class="detail-footer-item">
             <span @click.stop="up($event,item,index)">
-              <i v-if="item.blogLikeStatus == 0" class="fa fa-thumbs-o-up"></i>
-              <i v-if="item.blogLikeStatus == 1" class="fa fa-thumbs-up"></i>
+              <i v-if="item.blogLikestatus == 0" class="fa fa-thumbs-o-up"></i>
+              <i v-if="item.blogLikestatus == 1" class="fa fa-thumbs-up"></i>
             </span>
-            <span>12</span>
+            <span>{{item.blogLike}}</span>
           </span>
       </div>
     </div>
@@ -33,12 +34,12 @@
 </template>
 
 <script>
-  import { XButton,Divider,Cell,Group } from 'vux'
+  import { XButton,Divider,Cell,Group,Toast } from 'vux'
   import 'video.js/dist/video-js.css'
   import { videoPlayer } from 'vue-video-player'
   export default {
     components: {
-      XButton,Divider,Cell,Group,videoPlayer
+      XButton,Divider,Cell,Group,videoPlayer,Toast
     },
     data () {
       return {
@@ -49,7 +50,9 @@
         current:1,
         pageNow:1,
         totalCount:0,
-        blockList:[]
+        blockList:[],
+        errTips:'',
+        showPositionValue:false,
       }
     },
     name: 'detail',
@@ -84,7 +87,7 @@
         var paramsData = {
           blogId:item.blogId
         };
-        this.$reqApi.postQs("/proxy/proxy/frontend/set-blog-stat", paramsData ,res => {
+        this.$reqApi.postQs("/proxy/frontend/set-blog-stat", paramsData ,res => {
           this.$router.push(
             {
               path: '/detail',
@@ -108,9 +111,9 @@
           this.errTips = "请完善个人信息";
         }else{
           this.$reqApi.postQs("/proxy/frontend/set-blog-like", paramsData ,res => {
-            this.blockList[index].blogLikeStatus = this.blockList[index].blogLikeStatus == 0 ? 1 : 0;
+            this.blockList[index].blogLikestatus = this.blockList[index].blogLikestatus == 0 ? 1 : 0;
 
-            if(this.blockList[index].blogLikeStatus == 0){
+            if(this.blockList[index].blogLikestatus == 0){
               this.blockList[index].blogLike--;
             }else{
               this.blockList[index].blogLike++;

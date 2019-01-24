@@ -4,7 +4,7 @@
     <div>
       <div style="height: 120px;background: #dddddd">
         <!--<img src="./../../assets/banner-1.jpeg" alt="" class="img-class">-->
-        <swiper auto loop :list="blogTopList"></swiper>
+        <swiper auto loop :list="blogTopList" style="height: 100%"></swiper>
       </div>
       <div v-for="(item,index) in blogList" :key="index">
         <!--视频-->
@@ -30,14 +30,14 @@
                          poster="https://bbs.9451.com/proxy/img/video.jpg">
                   </video>
                 </div>
-                <div>
+                <div style="padding:0px 10px;">
                   {{item.arrayList.textStr}}
                 </div>
               </div>
             </div>
 
             <div class="recommend-footer">
-              <span class="recommend-footer-item">rickys</span>
+              <span class="recommend-footer-item">{{item.userNickname}}</span>
               <span class="recommend-footer-item">
                 <span @click.stop="eye">
                   <i class="fa fa-eye"></i>
@@ -53,8 +53,8 @@
               </span>-->
               <span class="recommend-footer-item">
                 <span @click.stop="up($event,item,index)">
-                  <i v-if="item.blogLikeStatus == 0" class="fa fa-thumbs-o-up"></i>
-                  <i v-if="item.blogLikeStatus == 1" class="fa fa-thumbs-up"></i>
+                  <i v-if="item.blogLikestatus == 0" class="fa fa-thumbs-o-up"></i>
+                  <i v-if="item.blogLikestatus == 1" class="fa fa-thumbs-up"></i>
                 </span>
                 <span>{{item.blogLike}}</span>
               </span>
@@ -72,13 +72,13 @@
               <div>
                 <img :src="item.arrayList.imgArr[0].data" alt="" class="img-class">
               </div>
-              <div>
+              <div style="padding:0px 10px;">
                 {{item.arrayList.textStr}}
               </div>
             </div>
           </div>
           <div class="recommend-footer">
-            <span class="recommend-footer-item">rickys</span>
+            <span class="recommend-footer-item">{{item.userNickname}}</span>
             <span class="recommend-footer-item">
               <span @click.stop="eye"><i class="fa fa-eye"></i></span>
               <span>{{item.blogPv}}</span>
@@ -92,8 +92,8 @@
             </span>-->
             <span class="recommend-footer-item">
               <span @click.stop="up($event,item,index)">
-                <i v-if="item.blogLikeStatus == 0" class="fa fa-thumbs-o-up"></i>
-                <i v-if="item.blogLikeStatus == 1" class="fa fa-thumbs-up"></i>
+                <i v-if="item.blogLikestatus == 0" class="fa fa-thumbs-o-up"></i>
+                <i v-if="item.blogLikestatus == 1" class="fa fa-thumbs-up"></i>
               </span>
               <span>{{item.blogLike}}</span>
             </span>
@@ -107,13 +107,13 @@
               <div class="recommend-title">
                 {{item.blogTitle}}
               </div>
-              <div class="recommend-content">
+              <div class="recommend-content"  style="padding:5px 10px;">
                 {{item.arrayList.textStr}}
               </div>
             </div>
 
             <div class="recommend-footer">
-              <span class="recommend-footer-item">rickys</span>
+              <span class="recommend-footer-item">{{item.userNickname}}</span>
               <span class="recommend-footer-item">
                 <span @click.stop="eye"><i class="fa fa-eye"></i></span>
                 <span>{{item.blogPv}}</span>
@@ -124,8 +124,8 @@
               </span>-->
               <span class="recommend-footer-item">
                 <span @click.stop="up($event,item,index)">
-                  <i v-if="item.blogLikeStatus == 0" class="fa fa-thumbs-o-up"></i>
-                  <i v-if="item.blogLikeStatus == 1" class="fa fa-thumbs-up"></i>
+                  <i v-if="item.blogLikestatus == 0" class="fa fa-thumbs-o-up"></i>
+                  <i v-if="item.blogLikestatus == 1" class="fa fa-thumbs-up"></i>
                 </span>
                 <span>{{item.blogLike}}</span>
               </span>
@@ -176,10 +176,11 @@
           blogSlide:0,
           page:_self.pageNow,
           pageSize:this.pageNum,
+          //blogFind:0
           //blogSlide:0
         };
         this.$reqApi.get('/proxy/frontend/get-blog-list',this.$utils.clearData(params),res => {
-          console.log(res.data.data);
+          //console.log(res.data.data);
           this.blogList = res.data.data.blogList;
           let blogListData = res.data.data.blogList;
           this.totalCount = parseInt(res.data.data.blogCount);
@@ -223,7 +224,7 @@
               textStr = textStr.data
             }
 
-            this.blogList[i]['blogLikeStatus'] = 0;
+            //this.blogList[i]['blogLikeStatus'] = 0;
 
             this.blogList[i]['arrayList'] =  {
               textArr: textArr,
@@ -232,7 +233,7 @@
               textStr: textStr
             };
           }
-
+          console.log(this.blogList);
           this.blogList = Object.assign([], this.blogList);
         });
       },
@@ -243,8 +244,10 @@
           blogSlide:1,
           page:_self.pageNow,
           pageSize:this.pageNum,
+          //blogFind:0
           //blogSlide:0
         };
+        let imgList = [];
         this.$reqApi.get('/proxy/frontend/get-blog-list',this.$utils.clearData(params),res => {
           for(var i=0;i<res.data.data.blogList.length;i++){
             imgList.push({
@@ -254,8 +257,7 @@
               title: ''
             });
           }
-          this.blogTopList = res.data.data.blogList;
-          console.log(this.blogTopList);
+          this.blogTopList = imgList;
           this.only2ClickList(this.blogTopList);
         });
       },
@@ -263,7 +265,7 @@
         var paramsData = {
           blogId:item.blogId
         };
-        this.$reqApi.postQs("/proxy/proxy/frontend/set-blog-stat", paramsData ,res => {
+        this.$reqApi.postQs("/proxy/frontend/set-blog-stat", paramsData ,res => {
           this.$router.push(
             {
               path: '/detail',
@@ -285,7 +287,7 @@
       up(event,params,index){
         var paramsData = {
           blogId:params.blogId,
-          likeType: this.blogList[index].blogLikeStatus== 0 ? 1 : 0
+          likeType: this.blogList[index].blogLikestatus== 0 ? 1 : 0
         };
 
         if(!localStorage.getItem("userLogin") || localStorage.getItem("userLogin") == false){
@@ -293,9 +295,9 @@
           this.errTips = "请完善个人信息";
         }else{
           this.$reqApi.postQs("/proxy/frontend/set-blog-like", paramsData ,res => {
-            this.blogList[index].blogLikeStatus = this.blogList[index].blogLikeStatus == 0 ? 1 : 0;
+            this.blogList[index].blogLikestatus = this.blogList[index].blogLikestatus == 0 ? 1 : 0;
 
-            if(this.blogList[index].blogLikeStatus == 0){
+            if(this.blogList[index].blogLikestatus == 0){
               this.blogList[index].blogLike--;
             }else{
               this.blogList[index].blogLike++;
@@ -325,7 +327,7 @@
   word-wrap:break-word
 }
 .recommend-content{
-  padding:5px 10px;
+  padding:5px 0px;
   border-bottom: 1px solid #dcdee2;
   word-break:break-all;
   word-wrap:break-word;
@@ -347,6 +349,6 @@
 }
 .video-class{
   width: 100%;
-  height: 240px;
+  height: 190px;
 }
 </style>

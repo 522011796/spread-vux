@@ -76,7 +76,7 @@ export default new Router({
         {
           path: '/add',
           name: 'add',
-          component: resolve => require(['@/page/community/like'],resolve)
+          component: resolve => require(['@/page/community/add'],resolve)
         },
         {
           path: '/funs',

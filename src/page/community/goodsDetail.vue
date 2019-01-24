@@ -8,46 +8,78 @@
     </div>
     <div class="goods-main">
       <div class="goods-img">
-
+        <swiper :list="goodsTopList" style="height: 100%;" dots-position="bottom"></swiper>
       </div>
       <div class="goods-title-show">
         <div>
-          <span class="newPrice">¥1200</span>
-          <span class="oldPrice">¥3600</span>
+          <span class="newPrice">¥{{goodsList.productPrice}}</span>
+          <span class="oldPrice">¥{{goodsList.productOriginalprice}}</span>
         </div>
         <div>
-          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          {{goodsDescription}}
         </div>
       </div>
       <div>
-        <img src="./../../assets/1.jpeg" alt="" class="img-class">
-        <img src="./../../assets/1.jpeg" alt="" class="img-class">
-        <img src="./../../assets/1.jpeg" alt="" class="img-class">
-        <img src="./../../assets/1.jpeg" alt="" class="img-class">
+        <img v-for="(item,index) in goodsContent" :key="index" :src="item" alt="" class="img-class">
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, XButton, XHeader,ViewBox } from 'vux'
+  import { Tabbar, TabbarItem, XButton, XHeader,ViewBox,Swiper } from 'vux'
   export default {
     components: {
-      XButton, Tabbar, TabbarItem,XHeader,ViewBox
+      XButton, Tabbar, TabbarItem,XHeader,ViewBox,Swiper
     },
     name: 'goods',
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        back:''
+        back:'',
+        goodsList:[],
+        goodsTopList:[],
+        pageNum:10000,
+        current:1,
+        pageNow:1,
+        totalCount:0,
+        productId:'',
+        goodsDescription:'',
+        goodsContent:[]
       }
     },
     created(){
-
+      this.productId = this.$route.query.productId;
+      this.init();
     },
     methods:{
       backUrl(){
         this.$router.push('/goods');
+      },
+      init(){
+        var _self = this;
+        let params = {
+          productId: this.productId
+        };
+        let imgList = [];
+        this.$reqApi.get('/proxy/frontend/get-product-info',this.$utils.clearData(params),res => {
+          //console.log(res.data.data);
+          let jsonContent = JSON.parse(res.data.data.productInfo.productContent);
+          this.goodsList = res.data.data.productInfo;
+          this.goodsDescription = jsonContent.goodsDescription;
+          this.goodsContent = jsonContent.productContent;
+
+          for(var i=0;i<jsonContent.goodsTopScrollImg.length;i++){
+            imgList.push({
+              id: i,
+              url: 'javascript:',
+              img: jsonContent.goodsTopScrollImg[i],
+              title: ''
+            });
+          }
+          this.goodsTopList = imgList;
+          //console.log(jsonContent.productContent);
+        });
       },
     }
   }

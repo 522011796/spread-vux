@@ -17,7 +17,8 @@
               <img :src="userHeadimgurl" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
               <span style="position: relative;top:-8px;font-size:10px;">{{userNickname}}</span>
               <span>
-                <x-button mini plain type="primary" class="btn-class">+关注</x-button>
+                <x-button mini plain type="primary" class="btn-class" v-if="foucsStatus == false" @click.native="addUserStatus()">+关注</x-button>
+                <x-button mini plain type="primary" class="btn-class" v-if="foucsStatus == true">已关注</x-button>
               </span>
             </span>
             <span style="color:#c5c8ce;font-size:10px;margin-right:10px;position: relative;top:-5px;">
@@ -53,7 +54,9 @@
         userNickname:'',
         blogContent:'',
         blogAddtime:'',
-        blockId:''
+        blockId:'',
+        foucsStatus:false,
+        blogAuthor:''
       }
     },
     name: 'detail',
@@ -85,11 +88,33 @@
           this.userHeadimgurl = res.data.data.blogInfo.userHeadimgurl;
           this.blogAddtime = res.data.data.blogInfo.blogAddtime;
           this.blogTitle = res.data.data.blogInfo.blogTitle;
+          this.blogAuthor = res.data.data.blogInfo.blogAuthor;
 
           let c2 = res.data.data.blogInfo.blogContent.replace(/<img/g, '<img style="max-width:100%;"');
           this.blogContent = c2;
+
+          this.getUserFoucsStatus(this.blogAuthor)
         });
       },
+      getUserFoucsStatus(blogAuthor){
+        var params = {
+          focusReciver:blogAuthor,
+        };
+        this.$reqApi.get('/proxy/frontend/get-focus-status',this.$utils.clearData(params),res => {
+          this.foucsStatus = true;
+        });
+      },
+      addUserStatus(){
+        var paramsData = {
+          focusReciver:this.blogAuthor,
+          focusType:1
+        };
+        this.$reqApi.postQs("/proxy/frontend/set-user-focus", paramsData ,res => {
+          this.foucsStatus = true;
+        },res=>{
+          //this.$Message.error(res.data.desc);
+        },{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
+      }
     },
     computed: {
       play() {
