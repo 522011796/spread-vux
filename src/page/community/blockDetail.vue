@@ -5,6 +5,7 @@
       <div style="position: relative;">
         <span class="header-bar" @click="backUrl"><i class="fa fa-chevron-left"></i></span>
         <span>{{blockTitle}}</span>
+        <span class="header-write-bar" @click="jumpNote"><i class="fa fa-edit" style="font-size:20px;"></i></span>
       </div>
     </div>
     <div class="detail-main" v-for="(item,index) in blockList" @click.stop="jumpDetailShow($event,item)">
@@ -120,6 +121,16 @@
             }
           },null,{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
         }
+      },
+      jumpNote(){
+        this.$router.push(
+          {
+            path: '/note',
+            query:{
+              blockId: this.blockId
+            }
+          }
+        )
       }
     },
     computed: {
@@ -153,6 +164,13 @@ div{
 .header-bar{
   position: absolute;
   left:5px;
+  width: 30px;
+  text-align: center;
+}
+.header-write-bar{
+  position: absolute;
+  right:5px;
+  top:5px;
   width: 30px;
   text-align: center;
 }

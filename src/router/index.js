@@ -51,6 +51,11 @@ export default new Router({
           name: 'myinfo',
           component: resolve => require(['@/page/myinfo/myinfo'],resolve)
         },
+        {
+          path: '/note',
+          name: 'note',
+          component: resolve => require(['@/page/note'],resolve)
+        }
       ]
     },
     {
