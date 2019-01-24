@@ -84,6 +84,11 @@ export default new Router({
           component: resolve => require(['@/page/community/add'],resolve)
         },
         {
+          path: '/added',
+          name: 'added',
+          component: resolve => require(['@/page/community/added'],resolve)
+        },
+        {
           path: '/funs',
           name: 'funs',
           component: resolve => require(['@/page/community/funs'],resolve)

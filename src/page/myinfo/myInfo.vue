@@ -30,7 +30,7 @@
         <div style="background: #ffffff;padding-top: 10px;padding-bottom:10px;">
           <div class="myinfo-title-icon">
             <div style="text-align: center;display: inline-block;font-size: 10px;margin-right: 20%" @click="addToUser">
-              <div>关注</div>
+              <div>已关注</div>
               <div style="font-size:10px;">{{myToLikeNum}}</div>
             </div>
             <!--<div style="text-align: center;display: inline-block;;margin-left: 20%;margin-right: 20%;font-size: 10px;" @click="funs">
@@ -382,7 +382,7 @@
       userTomyAdd(){
         this.$router.push(
           {
-            path: '/add',
+            path: '/added',
             query: {
               back: '/myInfo',
               queryType:2
