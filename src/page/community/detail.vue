@@ -9,13 +9,13 @@
     <div style="padding:5px 16px;background: #ffffff">
       <div>
         <div>
-          xxxxxxxxxxxxxx
+          {{blogTitle}}
         </div>
         <div>
           <div style="position: relative;margin-top:5px;">
             <span style="color:#2db7f5;margin-right:10px;">
-              <img src="" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
-              <span style="position: relative;top:-8px;font-size:10px;">ricky</span>
+              <img :src="userHeadimgurl" style="height:20px;width: 20px;border-radius: 20px;border:1px solid #dddddd;" alt="">
+              <span style="position: relative;top:-8px;font-size:10px;">{{userNickname}}</span>
               <span>
                 <x-button mini plain type="primary" class="btn-class">+关注</x-button>
               </span>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div style="margin-top:10px;font-size:12px;color:#515a6e;">
+    <div style="margin-top:10px;font-size:12px;color:#515a6e;padding:0px 10px;">
       <div v-html="blogContent">
 
       </div>
@@ -53,6 +53,7 @@
         userNickname:'',
         blogContent:'',
         blogAddtime:'',
+        blockId:''
       }
     },
     name: 'detail',
@@ -60,6 +61,7 @@
       this.back = this.$route.query.back;
       this.backOld = this.$route.query.backOld;
       this.blogId = this.$route.query.blogId;
+      this.blockId = this.$route.query.blockId;
       this.init();
     },
     methods:{
@@ -68,13 +70,25 @@
           {
             path: this.back,
             query: {
-              back: '/block', blogId: '1'
+              back: '/block', blogId: this.blogId,blockId:this.blockId
             }
           }
         );
       },
       init(){
+        var params = {
+          blogId: this.blogId
+        };
+        this.$reqApi.get('/proxy/frontend/get-blog-info',this.$utils.clearData(params),res => {
+          console.log(res.data.data.blogInfo);
+          this.userNickname = res.data.data.blogInfo.userNickname;
+          this.userHeadimgurl = res.data.data.blogInfo.userHeadimgurl;
+          this.blogAddtime = res.data.data.blogInfo.blogAddtime;
+          this.blogTitle = res.data.data.blogInfo.blogTitle;
 
+          let c2 = res.data.data.blogInfo.blogContent.replace(/<img/g, '<img style="max-width:100%;"');
+          this.blogContent = c2;
+        });
       },
     },
     computed: {

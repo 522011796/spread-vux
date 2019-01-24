@@ -3,7 +3,7 @@
     <view-box ref="viewBox" :bodyPaddingBottom="bodyPaddingBottom" :bodyPaddingTop="bodyPaddingTop" style="height: 100%;">
       <router-view></router-view>
     </view-box>
-    <tabbar slot="bottom" style="position: fixed;left: 0;">
+    <tabbar slot="bottom" style="position: fixed;left: 0;height: 50px;">
       <tabbar-item link="/recommend" selected>
         <i slot="icon" class="fa fa-home icon-size"></i>
         <span slot="label">首页</span>

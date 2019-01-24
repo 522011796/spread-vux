@@ -3,67 +3,28 @@
     <div class="layout-header">
       <div style="position: relative;">
         <span class="header-bar" @click="backUrl"><i class="fa fa-chevron-left"></i></span>
-        <span>xxxx专区</span>
+        <span>{{blockTitle}}</span>
       </div>
     </div>
-    <div class="detail-main" @click.stop="jumpDetailShow">
+    <div class="detail-main" v-for="(item,index) in blockList" @click.stop="jumpDetailShow($event,item)">
       <div class="detail-title">
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        {{item.blogTitle}}
       </div>
       <div class="detail-footer">
         <span class="detail-footer-item">rickys</span>
-        <span class="detail-footer-item">
+          <span class="detail-footer-item">
             <span @click.stop="eye"><i class="fa fa-eye"></i></span>
             <span>12</span>
           </span>
-        <span class="detail-footer-item">
+          <!--<span class="detail-footer-item">
             <span @click.stop="heart"><i class="fa fa-heart-o"></i></span>
             <span>12</span>
-          </span>
-        <span class="detail-footer-item">
-            <span @click.stop="up"><i class="fa fa-thumbs-o-up"></i></span>
-            <span>12</span>
-          </span>
-      </div>
-    </div>
-
-    <div class="detail-main" @click.stop="jumpDetailShow">
-      <div class="detail-title">
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      </div>
-      <div class="detail-footer">
-        <span class="detail-footer-item">rickys</span>
-        <span class="detail-footer-item">
-            <span @click.stop="eye"><i class="fa fa-eye"></i></span>
-            <span>12</span>
-          </span>
-        <span class="detail-footer-item">
-            <span @click.stop="heart"><i class="fa fa-heart-o"></i></span>
-            <span>12</span>
-          </span>
-        <span class="detail-footer-item">
-            <span @click.stop="up"><i class="fa fa-thumbs-o-up"></i></span>
-            <span>12</span>
-          </span>
-      </div>
-    </div>
-
-    <div class="detail-main" @click.stop="jumpDetailShow">
-      <div class="detail-title">
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      </div>
-      <div class="detail-footer">
-        <span class="detail-footer-item">rickys</span>
-        <span class="detail-footer-item">
-            <span @click.stop="eye"><i class="fa fa-eye"></i></span>
-            <span>12</span>
-          </span>
-        <span class="detail-footer-item">
-            <span @click.stop="heart"><i class="fa fa-heart-o"></i></span>
-            <span>12</span>
-          </span>
-        <span class="detail-footer-item">
-            <span @click.stop="up"><i class="fa fa-thumbs-o-up"></i></span>
+          </span>-->
+          <span class="detail-footer-item">
+            <span @click.stop="up($event,item,index)">
+              <i v-if="item.blogLikeStatus == 0" class="fa fa-thumbs-o-up"></i>
+              <i v-if="item.blogLikeStatus == 1" class="fa fa-thumbs-up"></i>
+            </span>
             <span>12</span>
           </span>
       </div>
@@ -82,18 +43,20 @@
     data () {
       return {
         back:'',
-        blogId:'',
-        blogTitle:'',
-        userHeadimgurl:'',
-        userNickname:'',
-        blogContent:'',
-        blogAddtime:'',
+        blockId:'',
+        blockTitle:'',
+        pageNum:10000,
+        current:1,
+        pageNow:1,
+        totalCount:0,
+        blockList:[]
       }
     },
     name: 'detail',
     created(){
       this.back = this.$route.query.back;
-      this.blogId = this.$route.query.blogId;
+      this.blockId = this.$route.query.blockId;
+      this.blockTitle = this.$route.query.blockTitle;
       this.init();
     },
     methods:{
@@ -104,18 +67,56 @@
           }
         );
       },
-      init(){
-
+      init(page){
+        var _self = this;
+        this.pageNow  = page ? page : this.pageNow;
+        var params = {
+          blogModule:this.blockId,
+          page:_self.pageNow,
+          pageSize:this.pageNum,
+          //blogSlide:0
+        };
+        this.$reqApi.get('/proxy/frontend/get-blog-list',this.$utils.clearData(params),res => {
+          this.blockList = res.data.data.blogList;
+        });
       },
-      jumpDetailShow(){
-        this.$router.push(
-          {
-            path: '/detail',
-            query: {
-              back:"/blockDetail", backOld:"/block" , blogId: '1'
+      jumpDetailShow(event,item){
+        var paramsData = {
+          blogId:item.blogId
+        };
+        this.$reqApi.postQs("/proxy/proxy/frontend/set-blog-stat", paramsData ,res => {
+          this.$router.push(
+            {
+              path: '/detail',
+              query: {
+                back:"/blockDetail", backOld:"/block" , blogId: item.blogId, blockId:this.blockId
+              }
             }
-          }
-        )
+          )
+        },res=>{
+          //this.$Message.error(res.data.desc);
+        },{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
+      },
+      up(event,params,index){
+        var paramsData = {
+          blogId:params.blogId,
+          likeType: this.blockList[index].blogLikeStatus== 0 ? 1 : 0
+        };
+
+        if(!localStorage.getItem("userLogin") || localStorage.getItem("userLogin") == false){
+          this.showPositionValue = true;
+          this.errTips = "请完善个人信息";
+        }else{
+          this.$reqApi.postQs("/proxy/frontend/set-blog-like", paramsData ,res => {
+            this.blockList[index].blogLikeStatus = this.blockList[index].blogLikeStatus == 0 ? 1 : 0;
+
+            if(this.blockList[index].blogLikeStatus == 0){
+              this.blockList[index].blogLike--;
+            }else{
+              this.blockList[index].blogLike++;
+            }
+          },null,{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
+        }
       }
     },
     computed: {

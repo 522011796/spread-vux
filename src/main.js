@@ -30,6 +30,11 @@ Vue.prototype.$reqApi = apiReq
 
 Vue.config.productionTip = false
 
+// 引用工具文件
+import utils from './utils/index.js'
+// 将工具方法绑定到全局
+Vue.prototype.$utils = utils
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
