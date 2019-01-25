@@ -202,7 +202,7 @@ div{
   margin-bottom:10px;
 }
 .detail-title{
-  padding:2spx 0px;
+  padding:2px 0px;
   word-break:break-all;
   word-wrap:break-word;
   font-size: 13px;
