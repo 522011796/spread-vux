@@ -82,7 +82,6 @@
             this.$reqApi.get('/proxy/frontend/get-focus-status',this.$utils.clearData(paramsFoucs),res => {
               //_self.userList[index].foucsStatus = true;
               this.$set(_self.userList[index],'foucsStatus',true);
-              console.log(_self.userList[index]);
             });
           }
         });
@@ -102,8 +101,13 @@
           focusReciver:item.userKey,
           focusType:1
         };
+        console.log(111);
         this.$reqApi.postQs("/proxy/frontend/set-user-focus", paramsData ,res => {
-          this.userList[index].foucsStatus = true;
+          this.$forceUpdate();
+          //this.userList[index].foucsStatus = true;
+          //console.log(222);
+          this.$set(this.userList[index],'foucsStatus',true);
+          //this.foucsToMy();
         },res=>{
           //this.$Message.error(res.data.desc);
         },{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
