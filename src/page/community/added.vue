@@ -15,7 +15,7 @@
           <div>{{item.userNickname}}</div>
           <span>
             <!--<x-button mini plain type="primary" class="btn-class" @click="addUserStatus()">+关注</x-button>-->
-            <x-button mini plain type="primary" class="btn-class" v-if="item.foucsStatus == false" @click.native="addUserStatus($event,item)">+关注</x-button>
+            <x-button mini plain type="primary" class="btn-class" v-if="item.foucsStatus == false" @click.native="addUserStatus($event,item,index)">+关注</x-button>
             <x-button mini plain type="primary" class="btn-class" v-if="item.foucsStatus == true">已关注</x-button>
           </span>
         </div>
@@ -71,8 +71,8 @@
         };
         this.$reqApi.get('/proxy/frontend/get-focus-user-list',this.$utils.clearData(params),res => {
           this.likeToMyNum = res.data.data.userCount;
-          _self.userList = res.data.data.userList;
-
+          this.userList = res.data.data.userList;
+          //console.log(_self.userList);
           for(var i=0;i<res.data.data.userList.length;i++){
             let index = i;
             //_self.userList[index]['foucsStatus'] = false;
@@ -81,7 +81,6 @@
             };
             this.$reqApi.get('/proxy/frontend/get-focus-status',this.$utils.clearData(paramsFoucs),res => {
               //_self.userList[index].foucsStatus = true;
-              console.log(this.userList[index]);
               this.$set(this.userList[index],'foucsStatus',true);
             });
           }
@@ -97,13 +96,13 @@
           }
         )
       },
-      addUserStatus(event,item){
+      addUserStatus(event,item,index){
         var paramsData = {
           focusReciver:item.userKey,
           focusType:1
         };
         this.$reqApi.postQs("/proxy/frontend/set-user-focus", paramsData ,res => {
-          this.foucsStatus = true;
+          this.userList[index].foucsStatus = true;
         },res=>{
           //this.$Message.error(res.data.desc);
         },{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});

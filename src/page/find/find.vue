@@ -271,7 +271,7 @@
         var paramsData = {
           blogId:item.blogId
         };
-        this.$reqApi.postQs("/proxy/proxy/frontend/set-blog-stat", paramsData ,res => {
+        this.$reqApi.postQs("/proxy/frontend/set-blog-stat", paramsData ,res => {
           this.$router.push(
             {
               path: '/detail',

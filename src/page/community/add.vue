@@ -13,9 +13,10 @@
         </div>
         <div class="block-content">
           <div>{{item.userNickname}}</div>
-          <!--<span>
-            <x-button mini plain type="primary" class="btn-class">+关注</x-button>
-          </span>-->
+          <span>
+            <!--<x-button mini plain type="primary" v-if="item.foucsStatus == false" class="btn-class">+关注</x-button>-->
+            <x-button mini plain type="primary" class="btn-class" v-if="item.foucsStatus == true"  @click.native="minUserStatus($event,item,index)">取消关注</x-button>
+          </span>
         </div>
         <div style="clear: both;"></div>
       </div>
@@ -66,9 +67,25 @@
           pageSize: 10000
         };
         this.$reqApi.get('/proxy/frontend/get-focus-user-list',this.$utils.clearData(params),res => {
-          console.log(res.data.data);
           this.likeToMyNum = res.data.data.userCount;
           this.userList = res.data.data.userList;
+
+          this.likeToMyNum = res.data.data.userCount;
+          this.userList = res.data.data.userList;
+
+          for(var i=0;i<res.data.data.userList.length;i++){
+            let index = i;
+            //_self.userList[index]['foucsStatus'] = false;
+            var paramsFoucs = {
+              focusReciver:res.data.data.userList[index].userKey,
+            };
+            console.log(paramsFoucs);
+            this.$reqApi.get('/proxy/frontend/get-focus-status',this.$utils.clearData(paramsFoucs),res => {
+              //_self.userList[index].foucsStatus = true;
+              this.$set(this.userList[index],'foucsStatus',true);
+              console.log(this.userList[index]);
+            });
+          }
         });
       },
       jumpDetail(){
@@ -80,7 +97,19 @@
             }
           }
         )
-      }
+      },
+      minUserStatus(event,item,index){
+        var paramsData = {
+          focusReciver:item.userKey,
+          focusType:0
+        };
+        this.$reqApi.postQs("/proxy/frontend/set-user-focus", paramsData ,res => {
+          this.userList[index].foucsStatus = false;
+          this.userList.splice(index, 1);
+        },res=>{
+          //this.$Message.error(res.data.desc);
+        },{"Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'});
+      },
     }
   }
 </script>
