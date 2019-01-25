@@ -1,5 +1,6 @@
 <template>
   <div id="goods">
+    <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="errTips" width="15em" style="font-size:12px;"></toast>
     <div class="goods-header">
       <span>新品</span>
     </div>
@@ -12,7 +13,7 @@
         <div class="goods-content-block">
           <div class="goods-item-title">
             <div>{{item.blockName}}</div>
-            <div>
+            <div @click="showMore">
               查看更多
               <span><i class=" fa fa-arrow-circle-right"></i></span>
             </div>
@@ -38,12 +39,12 @@
 </template>
 
 <script>
-  import { Tabbar, TabbarItem, XButton, XHeader,ViewBox,Swiper } from 'vux'
+  import { Tabbar, TabbarItem, XButton, XHeader,ViewBox,Swiper,Toast } from 'vux'
   const only2ClickList = null;
 
   export default {
     components: {
-      XButton, Tabbar, TabbarItem,XHeader,ViewBox,Swiper
+      XButton, Tabbar, TabbarItem,XHeader,ViewBox,Swiper,Toast
     },
     name: 'block',
     data () {
@@ -55,6 +56,8 @@
         totalCount:0,
         moduleId:'',
         productList:[],
+        showPositionValue:false,
+        errTips:'',
         blogTopList:[{
           id:0,
           url: 'javascript:',
@@ -125,6 +128,11 @@
             }
           }
         )
+      },
+      showMore(){
+        this.showPositionValue = true;
+        this.errTips = "暂时未开放，请稍后";
+        return;
       }
     }
   }
