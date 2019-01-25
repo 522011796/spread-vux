@@ -337,10 +337,12 @@
     margin-bottom: 5px;
   }
   .find-title{
-    padding:10px 10px;
+    padding:8px 10px;
     border-bottom: 1px solid #dcdee2;
     word-break:break-all;
-    word-wrap:break-word
+    word-wrap:break-word;
+    font-size: 13px;
+    font-weight: bold;
   }
   .find-content{
     padding:0px 0px;

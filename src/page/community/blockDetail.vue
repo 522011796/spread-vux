@@ -201,4 +201,11 @@ div{
   background: #ffffff;
   margin-bottom:10px;
 }
+.detail-title{
+  padding:2spx 0px;
+  word-break:break-all;
+  word-wrap:break-word;
+  font-size: 13px;
+  font-weight: bold;
+}
 </style>
