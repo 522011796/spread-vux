@@ -2,9 +2,9 @@
   <div id="recommend">
     <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="errTips" width="15em" style="font-size:10px;"></toast>
     <div>
-      <div style="height: 120px;background: #dddddd">
+      <div style="background: #dddddd">
         <!--<img src="./../../assets/banner-1.jpeg" alt="" class="img-class">-->
-        <swiper auto loop :list="blogTopList" style="height: 100%"></swiper>
+        <swiper auto loop height="150px" :list="blogTopList" style="height: 100%"></swiper>
       </div>
       <div v-for="(item,index) in blogList" :key="index">
         <!--视频-->

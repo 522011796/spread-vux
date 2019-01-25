@@ -6,7 +6,7 @@
     </div>
     <div>
       <div class="goods-scroll-img">
-        <swiper :list="blogTopList" style="height: 100%;" dots-position="bottom"></swiper>
+        <swiper height="150px" :list="blogTopList" style="height: 100%;" dots-position="bottom"></swiper>
       </div>
 
       <div class="goods-content" v-for="(item,index) in productList" v-if="productList[index].productList.length>0" :key="index">
@@ -152,7 +152,7 @@
     font-size:12px;
   }
   .goods-scroll-img{
-    height: 120px;
+    height: 100%;
     background: #fefefe;
   }
   .goods-content{
