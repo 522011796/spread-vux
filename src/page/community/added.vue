@@ -15,7 +15,7 @@
           <div>{{item.userNickname}}</div>
           <span>
             <!--<x-button mini plain type="primary" class="btn-class" @click="addUserStatus()">+关注</x-button>-->
-            <x-button mini plain type="primary" class="btn-class" v-if="item.foucsStatus == false" @click.native="addUserStatus($event,item,index)">+关注</x-button>
+            <x-button mini plain type="primary" class="btn-class" v-if="!item.foucsStatus" @click.native="addUserStatus($event,item,index)">+关注</x-button>
             <x-button mini plain type="primary" class="btn-class" v-if="item.foucsStatus == true">已关注</x-button>
           </span>
         </div>
@@ -81,7 +81,8 @@
             };
             this.$reqApi.get('/proxy/frontend/get-focus-status',this.$utils.clearData(paramsFoucs),res => {
               //_self.userList[index].foucsStatus = true;
-              this.$set(this.userList[index],'foucsStatus',true);
+              this.$set(_self.userList[index],'foucsStatus',true);
+              console.log(_self.userList[index]);
             });
           }
         });
@@ -152,6 +153,7 @@
   margin-left: 40px;
   padding-top: 5px;
   position: relative;
+  font-size: 13px;
 }
 .block-content div{
   font-weight: normal;

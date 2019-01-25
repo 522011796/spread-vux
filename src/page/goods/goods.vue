@@ -22,7 +22,7 @@
         </div>
         <div class="goods-content-block">
           <div class="goods-content-block-item-block">
-            <div class="goods-content-block-item" v-for="(proItem,ProIndex) in item.productList" :key="ProIndex" @click="jumpDetail($event,proItem)" :style="ProIndex==1 ? 'margin-left: 20px;margin-right: 20px' : ''">
+            <div class="goods-content-block-item" v-for="(proItem,ProIndex) in item.productList" v-if="ProIndex < 3" :key="ProIndex" @click="jumpDetail($event,proItem)" :style="ProIndex==1 ? 'margin-left: 20px;margin-right: 20px' : ''">
               <div style="height: 75px;width:75px;border: 1px solid #dddddd">
                 <img :src="proItem.productLogo" alt="" style="height: 100%;width: 100%">
               </div>

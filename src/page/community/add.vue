@@ -147,6 +147,7 @@
   margin-left: 40px;
   padding-top: 5px;
   position: relative;
+  font-size: 13px;
 }
 .block-content div{
   font-weight: normal;
