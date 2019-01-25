@@ -93,6 +93,8 @@
           testChunks: false,
           chunkSize: '1024000000',
           fileParameterName:'file',
+          singleFile:true,
+          //simultaneousUploads: 100,
           query: {
             policy: "",
             callback: "",
@@ -166,9 +168,14 @@
       },
       fileAdd(file){
         let size = (file.size / (1024 * 1024)).toFixed(2);
+        //console.log(file.fileType.toLowerCase());
         if(size > 1024){
           this.showPositionValue = true;
           this.errTips = '文件不能大于1G';
+          file.ignored = true;
+        }else if(file.fileType.toLowerCase() != 'image/png' && file.fileType.toLowerCase() != 'image/jpg' && file.fileType.toLowerCase() != 'image/jpeg' && file.fileType.toLowerCase() != 'video/mp4'){
+          this.showPositionValue = true;
+          this.errTips = '文件格式:jpg、jpeg、png、mp4';
           file.ignored = true;
         }else{
           this.handleBeforeUpload(file);
@@ -335,9 +342,11 @@
       handleBeforeUpload(file){
         let key = "";
         //key = this.uploadOtherData.key + file.name;
+        this.filename = "";
 
         this.filename = file.name;
-        this.optionsUpload.query.key = this.fileKey + file.name;
+        this.optionsUpload.query.key = "";
+        //this.optionsUpload.query.key = this.fileKey + file.name;
         this.optionsUpload.query.policy = this.uploadOtherData.policy;
         this.optionsUpload.target = this.uploadOtherData.host;
         this.optionsUpload.query.policy = this.uploadOtherData.policy;
@@ -346,7 +355,8 @@
         this.optionsUpload.query.signature = this.uploadOtherData.signature;
         this.optionsUpload.query.expire = this.uploadOtherData.expire;
         this.optionsUpload.query.success_action_status = this.uploadOtherData.success_action_status;
-        console.log(this.optionsUpload);
+        this.$set(this.optionsUpload.query,'key',this.fileKey + file.name);
+        console.log(this.optionsUpload.query.key);
       }
     }
   }
